@@ -63,13 +63,14 @@ $.getJSON('https://stakecubecoin.net/web3/scp/getalltokens', function(data) {
       // Name & Ticker
       let tokenName = row.insertCell();
       let tokenNameValue = document.createElement('td');
-      tokenNameValue.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${strContract}">${formatName(strName, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(strTicker, 6)})</a><br><span class="scpVersion">SCP-${nVersion}</span>`;
+      tokenNameValue.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${strContract}"><span class="text-nowrap">${strName} (${formatName(strTicker, 6)})</a><br><span class="scpVersion">SCP-${nVersion}</span>`;
       tokenName.appendChild(tokenNameValue);
 
       // Supply
       let tokenSupply = row.insertCell();
       let tokenSupplyValue = document.createElement('td');
-      tokenSupplyValue.innerHTML = `${nHTML(nSupply, isMobile ? 2 : (nSupply > 100 ? 4 : 8))}<br style="margin-bottom: 5px;"><span style="margin-right: 5px;${isMobile ? 'margin-bottom: 5px;' : ''}" class="badge bg-info-new">${percentOf(nSupply, nMaxSupply).toFixed(isMobile ? 1 : 2) + '%'}</span>`;
+      tokenSupplyValue.innerHTML = `<div style="margin-bottom: 3px">${nHTML(nSupply, isMobile ? 2 : (nSupply > 100 ? 4 : 8))}</div>`;
+      tokenSupplyValue.innerHTML += `<span style="margin-right: 5px;" class="badge bg-info-new">${percentOf(nSupply, nMaxSupply).toFixed(isMobile ? 1 : 2) + '%'}</span>`;
       if (nVersion === 2 && data[i].APR > 0) {
         tokenSupplyValue.innerHTML += '<span class="badge bg-success-new">' + data[i].APR.toLocaleString('en-US', { maximumFractionDigits: isMobile ? 0 : (data[i].APR > 100 ? 0 : 2)}) + '% APR</span>';
       }
