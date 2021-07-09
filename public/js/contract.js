@@ -90,7 +90,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/gettoken/' + id, function(data) {
     let txHash = row.insertCell();
     let txHashValue = document.createElement('td');
     //txHashValue.innerHTML = `<a href="transaction.html?id=${cTxs.id}">${formatName(cTxs.id, 21)}</a>`;
-    txHashValue.innerHTML = `<a class="hash" style="color: black; text-decoration: none;" >${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
+    txHashValue.innerHTML = `<a class="hash text-nowrap" style="color: black; text-decoration: none;" >${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
     txHash.appendChild(txHashValue);
     let txBlock = row.insertCell();
     let txBlockvalue = document.createElement('td');
@@ -115,7 +115,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/gettoken/' + id, function(data) {
     txAddress.appendChild(txAddressValue);
     let txAmount = row.insertCell();
     let txAmountValue = document.createElement('td');
-    txAmountValue.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
+    txAmountValue.innerHTML = `<span class="text-nowrap">${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cToken.ticker}</span>`;
     txAmount.appendChild(txAmountValue);
   }
   // Compute TX stats from owners
@@ -147,7 +147,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/gettoken/' + id, function(data) {
     holdersAddress.appendChild(holdersAddressValue);
     let holdersAmount = row.insertCell();
     let holdersAmountValue = document.createElement('td');
-    holdersAmountValue.innerHTML = `${nHTML(richList.balance / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
+    holdersAmountValue.innerHTML = `<span class="text-nowrap">${nHTML(richList.balance / COIN, isMobile ? 2 : 8)} ${cToken.ticker}</span>`;
     holdersAmount.appendChild(holdersAmountValue);
     let holdersPercentage = row.insertCell();
     let holdersPercentageValue = document.createElement('td');
