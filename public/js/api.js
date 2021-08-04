@@ -19,7 +19,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 // STATS!
 let nDailyTXs = 0;
 
-$.getJSON('https://stakecubecoin.net/web3/scp/getalltokens', function(data) {
+$.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(data) {
     // Inserts data into array for searching
     for (const inf of data) {
       CoinSearchData.push(`${inf.name} (${inf.ticker}):${inf.contract}`);
@@ -62,6 +62,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/getalltokens', function(data) {
           txsArray.push({
             name: cToken.name,
             ticker: cToken.ticker,
+            contract: cToken.contract,
             id: cTxs.id,
             block: cTxs.block,
             type: cTxs.type,
@@ -93,7 +94,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/getalltokens', function(data) {
       let row = txTable.insertRow();
       let txName = row.insertCell();
       let txNameValue = document.createElement('td');
-      txNameValue.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${cTxs.id}">${formatName(cTxs.name, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(cTxs.ticker, 6)})</a>`;
+      txNameValue.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${cTxs.contract}">${formatName(cTxs.name, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(cTxs.ticker, 6)})</a>`;
       txName.appendChild(txNameValue);
       
       let txHash = row.insertCell();

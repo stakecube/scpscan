@@ -47,14 +47,14 @@ let domCalcReward3 = document.getElementById('rewardCalc3');
 let domCalcReward4 = document.getElementById('rewardCalc4');
 let domCalcReward5 = document.getElementById('rewardCalc5');
 
-$.getJSON('https://stakecubecoin.net/web3/scp/getalltokens', function(data) {
+$.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(data) {
   // Inserts data into array for searching
   for (const inf of data) {
     CoinSearchData.push(`${inf.name} (${inf.ticker}):${inf.contract}`);
   }
 });
 
-$.getJSON('https://stakecubecoin.net/web3/scp/gettoken/' + id, function(data) {// Inserts data into array for searching
+$.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(data) {// Inserts data into array for searching
   if (!data || !data.name || !data.ticker) return window.location.href = "/";
   cToken = data;
   domName.innerHTML = `${cToken.name} (${cToken.ticker})`;
