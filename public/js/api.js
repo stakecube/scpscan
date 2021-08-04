@@ -148,6 +148,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
     
     // Set most popular token
     popularToken.innerHTML = `${data[0].name} (${data[0].ticker})`;
+    popularToken.setAttribute('href', 'contract.html?id=' + data[0].contract);
 
     let i, len = data.length;
     for (i = 0; i < len; i++) {
