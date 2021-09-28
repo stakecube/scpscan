@@ -1,6 +1,6 @@
 let hoverEl = document.getElementById('totalUsers');
 let popup = document.getElementById('UsersPopup');
-let myModal = new bootstrap.Modal(document.getElementById('totalUsersModal'));
+let totalUsersModal = new bootstrap.Modal(document.getElementById('totalUsersModal'));
 
 hoverEl.addEventListener("mouseover", function(e) {
   popup.style.display = 'block';
