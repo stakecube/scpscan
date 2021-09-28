@@ -8,6 +8,7 @@ let transactions24h = document.getElementById('24hTransactions');
 let popularToken = document.getElementById('mostPopularToken');
 let totalUsers = document.getElementById('totalUsers');
 let totalTokens = document.getElementById('totalTokens');
+let userAddresses = document.getElementById("userAddresses");
 
 var isMobile = false;
 // device detection
@@ -18,6 +19,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 // STATS!
 let nDailyTXs = 0;
+let allUsers = [];
 
 $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(data) {
     // Inserts data into array for searching
@@ -29,7 +31,6 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
     totalTokens.innerHTML = data.length.toLocaleString('en-GB');
     
     // Precompute the stats of each token
-    let allUsers = [];
     let nHighestBlock = 0;
     let txsArray = [];
     for (const cToken of data) {
@@ -195,6 +196,10 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       return allUsers.indexOf(item) == pos;
     });
     totalUsers.innerHTML = arrSingleUsers.length.toLocaleString('en-GB');
+    for (const cUser of arrSingleUsers) {
+        // Add all user to user list
+        userAddresses.value += cUser + "\r\n";
+    }
 });
 
 // --- Utils

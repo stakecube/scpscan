@@ -192,3 +192,46 @@ a:hover {
   font-weight: 700;
   color: #7d7d94;
 }
+
+.popup {
+  background-color: rgb(77, 77, 77);
+  color: rgb(255, 255, 255);
+  border-radius: 7px;
+  padding: 3px;
+  width: 160px;
+  position: relative;
+  top: -48px;
+  left: calc(50%);
+  border-bottom-left-radius: 0px;
+  font-size:12px;
+  display:none;
+  z-index:10;
+}
+
+.popup:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  border-top-color: rgb(77, 77, 77);
+  border-bottom: 0;
+  margin-left: -80px;
+  margin-bottom: -6px;
+  border-left: 0;
+}
+
+textarea {
+  resize: none;
+  border-radius: 6px;
+  width:100%;
+  font-family: var(--bs-font-monospace);
+  font-size: .875em;
+  height: 133px;
+}
+
+.cusCarBodySize {
+  height:51px;
+}

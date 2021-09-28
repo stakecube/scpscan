@@ -52,6 +52,26 @@
   </header>
 
   <main>
+
+    <div class="modal fade" id="totalUsersModal" tabindex="-1" aria-labelledby="totalUsersModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="totalUsersModalLabel">Total Users (Addresses)</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <textarea readonly aria-readonly="true" id="userAddresses" style="text-align:center;"></textarea>
+          </div>
+          <div class="modal-footer">
+            <span class="badge bg-success-new" style="display:none; position: absolute; left: 19px;" id="copiedToClip">Copied to clipboard</span>
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="copyUserAddresses()">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
       <div class="row">
 
@@ -82,8 +102,9 @@
             <div class="card-header text-center">
               Total Users
             </div>
-            <div class="card-body text-center">
-              <span id="totalUsers" class="detailsSpan">-</span>
+            <div class="card-body text-center cusCarBodySize">
+              <span id="totalUsers" class="detailsSpan" onclick="myModal.show();">-</span>
+              <div class="popup" id="UsersPopup">Click for more info</div>
             </div>
           </div>
         </div>
@@ -156,6 +177,7 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/api.js"></script>
   <script src="js/search.js"></script>
+  <script src="js/hoverTotalUsers.js"></script>
 </body>
 
 </html>
