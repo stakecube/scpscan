@@ -11,7 +11,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 const COIN = (10**8);
 
 let cToken;
-let CoinSearchData = [];
+const CoinSearchData = [];
 
 // --- COOL STATS TO DISPLAY
 // - Richlist
@@ -25,27 +25,27 @@ let nTotalTXs = 0;
 let nAPR = 0;
 
 // Cached DOM Elements
-let domName = document.getElementById('contractName');
-let domContract = document.getElementById('contractAddress');
-let domVersion = document.getElementById('scpType');
-let domMaxSupply = document.getElementById('maxSupply');
-let domHolders = document.getElementById('holders');
-let domTransfers = document.getElementById('transfers');
-let domAprTab = document.getElementById('aprTab');
-let domApr = document.getElementById('apr');
-let tbodyRef = document.getElementById('txTable').getElementsByTagName('tbody')[0];
-let tbodyRefHolders = document.getElementById('holdersTable').getElementsByTagName('tbody')[0];
+const domName = document.getElementById('contractName');
+const domContract = document.getElementById('contractAddress');
+const domVersion = document.getElementById('scpType');
+const domMaxSupply = document.getElementById('maxSupply');
+const domHolders = document.getElementById('holders');
+const domTransfers = document.getElementById('transfers');
+const domAprTab = document.getElementById('aprTab');
+const domApr = document.getElementById('apr');
+const tbodyRef = document.getElementById('txTable').getElementsByTagName('tbody')[0];
+const tbodyRefHolders = document.getElementById('holdersTable').getElementsByTagName('tbody')[0];
 
 
-let domStakingTab = document.getElementById('stakingTab');
-let domStakingPage = document.getElementsByName('stakingPage')[0];
-let domStakingAPR = document.getElementById('stakingAPR');
-let domStakingInput = document.getElementById('stakingInput');
-let domCalcReward1 = document.getElementById('rewardCalc1');
-let domCalcReward2 = document.getElementById('rewardCalc2');
-let domCalcReward3 = document.getElementById('rewardCalc3');
-let domCalcReward4 = document.getElementById('rewardCalc4');
-let domCalcReward5 = document.getElementById('rewardCalc5');
+const domStakingTab = document.getElementById('stakingTab');
+const domStakingPage = document.getElementsByName('stakingPage')[0];
+const domStakingAPR = document.getElementById('stakingAPR');
+const domStakingInput = document.getElementById('stakingInput');
+const domCalcReward1 = document.getElementById('rewardCalc1');
+const domCalcReward2 = document.getElementById('rewardCalc2');
+const domCalcReward3 = document.getElementById('rewardCalc3');
+const domCalcReward4 = document.getElementById('rewardCalc4');
+const domCalcReward5 = document.getElementById('rewardCalc5');
 
 $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(data) {
   // Inserts data into array for searching
@@ -70,7 +70,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     domStakingInput.placeholder = "100 " + cToken.ticker;
   }
   // Get all transactions and put them in an array
-  let txsArray = [];
+  const txsArray = [];
   for (const cOwners of cToken.owners) {
     for (const cTxs of cOwners.activity) {
       txsArray.push({
@@ -89,14 +89,14 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
   
   // Get all transactions and put them in table
   for (const cTxs of txsArray) {
-    let row = tbodyRef.insertRow();
-    let txHash = row.insertCell();
-    let txHashValue = document.createElement('td');
+    const row = tbodyRef.insertRow();
+    const txHash = row.insertCell();
+    const txHashValue = document.createElement('td');
     //txHashValue.innerHTML = `<a href="transaction.html?id=${cTxs.id}">${formatName(cTxs.id, 21)}</a>`;
     txHashValue.innerHTML = `<a class="hash" style="color: black; text-decoration: none;" >${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
     txHash.appendChild(txHashValue);
-    let txBlock = row.insertCell();
-    let txBlockvalue = document.createElement('td');
+    const txBlock = row.insertCell();
+    const txBlockvalue = document.createElement('td');
     txBlockvalue.innerHTML = `<span class="badge bg-secondary-new">${cTxs.block.toLocaleString('en-US')}</span>`;
     txBlock.appendChild(txBlockvalue);
     // Types colors
@@ -108,16 +108,16 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     } else if(cTxs.type == 'received') {
       typeColor = 'info-new';
     }
-    let txType = row.insertCell();
-    let txTypeValue = document.createElement('td');
-    txTypeValue.innerHTML = `<span class="badge bg-${typeColor}">${cTxs.type.charAt(0).toUpperCase() + cTxs.type.slice(1)}</span>`;
+    const txType = row.insertCell();
+    const txTypeValue = document.createElement('td');
+    txTypeValue.innerHTML = `<span class="badge bg-${typeColor}" style="text-transform:capitalize;">${cTxs.type}</span>`;
     txType.appendChild(txTypeValue);
-    let txAddress = row.insertCell();
-    let txAddressValue = document.createElement('td');
+    const txAddress = row.insertCell();
+    const txAddressValue = document.createElement('td');
     txAddressValue.innerHTML = `${formatName(cTxs.address, isMobile ? 5 : 34)}`;
     txAddress.appendChild(txAddressValue);
-    let txAmount = row.insertCell();
-    let txAmountValue = document.createElement('td');
+    const txAmount = row.insertCell();
+    const txAmountValue = document.createElement('td');
     txAmountValue.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
     txAmount.appendChild(txAmountValue);
   }
@@ -139,21 +139,21 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
   // Show richlist in table
   let rankNumber = 1;
   for (const richList of arrRichList) {
-    let row = tbodyRefHolders.insertRow();
-    let holdersRank = row.insertCell();
-    let holdersRankValue = document.createElement('td');
+    const row = tbodyRefHolders.insertRow();
+    const holdersRank = row.insertCell();
+    const holdersRankValue = document.createElement('td');
     holdersRankValue.innerHTML = `<span class="fw-500">${rankNumber}</span>`;
     holdersRank.appendChild(holdersRankValue);
-    let holdersAddress = row.insertCell();
-    let holdersAddressValue = document.createElement('td');
+    const holdersAddress = row.insertCell();
+    const holdersAddressValue = document.createElement('td');
     holdersAddressValue.innerHTML = formatName(richList.address, isMobile ? 5 : 34);
     holdersAddress.appendChild(holdersAddressValue);
-    let holdersAmount = row.insertCell();
-    let holdersAmountValue = document.createElement('td');
+    const holdersAmount = row.insertCell();
+    const holdersAmountValue = document.createElement('td');
     holdersAmountValue.innerHTML = `${nHTML(richList.balance / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
     holdersAmount.appendChild(holdersAmountValue);
-    let holdersPercentage = row.insertCell();
-    let holdersPercentageValue = document.createElement('td');
+    const holdersPercentage = row.insertCell();
+    const holdersPercentageValue = document.createElement('td');
     holdersPercentageValue.innerHTML = `${((richList.balance / cToken.supply) * 100).toFixed(isMobile ? 2 : 4)}%<br>
     <div class="progress" style="height: 2px; width:100px">
       <div class="progress-bar" role="progressbar" style="width: ${((richList.balance / cToken.supply) * 100).toFixed(0)}%" aria-valuenow="${((richList.balance / cToken.supply) * 100).toFixed(0)}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -175,8 +175,8 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     domAprTab.style.display = 'none';
   }
   if (cStaker) {
-    let nWeight = percentOf(cStaker.balance, cToken.supply) / 100;
-    let nReward = cToken.inflation * nWeight;
+    const nWeight = percentOf(cStaker.balance, cToken.supply) / 100;
+    const nReward = cToken.inflation * nWeight;
     nAPR = percentOf((nReward * 720) * 365, cStaker.balance);
     domApr.innerText = nAPR.toFixed(2) + "%";
     domStakingAPR.innerText = nAPR.toFixed(2) + "% APR!";

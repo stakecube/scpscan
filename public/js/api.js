@@ -1,14 +1,14 @@
 const COIN = (10**8);
-let CoinSearchData = [];
+const CoinSearchData = [];
 
 // DOM Renderer optimization
-let tbodyRef = document.getElementById('tokensTable').getElementsByTagName('tbody')[0];
-let txTable = document.getElementById('txTable').getElementsByTagName('tbody')[0];
-let transactions24h = document.getElementById('24hTransactions');
-let popularToken = document.getElementById('mostPopularToken');
-let totalUsers = document.getElementById('totalUsers');
-let totalTokens = document.getElementById('totalTokens');
-let userAddresses = document.getElementById("userAddresses");
+const tbodyRef = document.getElementById('tokensTable').getElementsByTagName('tbody')[0];
+const txTable = document.getElementById('txTable').getElementsByTagName('tbody')[0];
+const transactions24h = document.getElementById('24hTransactions');
+const popularToken = document.getElementById('mostPopularToken');
+const totalUsers = document.getElementById('totalUsers');
+const totalTokens = document.getElementById('totalTokens');
+const userAddresses = document.getElementById("userAddresses");
 
 var isMobile = false;
 // device detection
@@ -19,7 +19,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 // STATS!
 let nDailyTXs = 0;
-let allUsers = [];
+const allUsers = [];
 
 $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(data) {
     // Inserts data into array for searching
@@ -32,7 +32,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
     
     // Precompute the stats of each token
     let nHighestBlock = 0;
-    let txsArray = [];
+    const txsArray = [];
     for (const cToken of data) {
       let cStaker = false;
       // --- ACTIVITY DATA
@@ -41,7 +41,8 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       // Loop every owner
       for (const cOwner of cToken.owners) {
         // Add all users to array
-        allUsers.push(cOwner.address);
+        if (!allUsers.includes(cOwner.address))
+          allUsers.push(cOwner.address);
         // Add the activity
         cToken.totalActivity += cOwner.activity.length;
         // If their latest activity's block is higher than our current one, set it
@@ -80,8 +81,8 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       
       // --- SCP-2 --- APR DATA - (based on a sample of the largest staker)
       if (cToken.version === 2 && cStaker) {
-        let nWeight = percentOf(cStaker.balance, cToken.supply) / 100;
-        let nReward = cToken.inflation * nWeight;
+        const nWeight = percentOf(cStaker.balance, cToken.supply) / 100;
+        const nReward = cToken.inflation * nWeight;
         cToken.APR = percentOf((nReward * 720) * 365, cStaker.balance);
       }
     }
@@ -90,20 +91,20 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
     let txsCounter = 0;
     for (const cTxs of txsArray) {
       // End loop when 25 are shown
-      if (txsCounter > 25 - 1) break;
+      if (txsCounter > 24) break;
 
-      let row = txTable.insertRow();
-      let txName = row.insertCell();
-      let txNameValue = document.createElement('td');
+      const row = txTable.insertRow();
+      const txName = row.insertCell();
+      const txNameValue = document.createElement('td');
       txNameValue.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${cTxs.contract}">${formatName(cTxs.name, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(cTxs.ticker, 6)})</a>`;
       txName.appendChild(txNameValue);
       
-      let txHash = row.insertCell();
-      let txHashValue = document.createElement('td');
+      const txHash = row.insertCell();
+      const txHashValue = document.createElement('td');
       txHashValue.innerHTML = `<a class="hash" style="color: black; text-decoration: none;" >${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
       txHash.appendChild(txHashValue);
-      let txBlock = row.insertCell();
-      let txBlockvalue = document.createElement('td');
+      const txBlock = row.insertCell();
+      const txBlockvalue = document.createElement('td');
       txBlockvalue.innerHTML = `<span class="badge bg-secondary-new">${cTxs.block.toLocaleString('en-US')}</span>`;
       txBlock.appendChild(txBlockvalue);
       // Types colors
@@ -115,16 +116,16 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       } else if(cTxs.type == 'received') {
         typeColor = 'info-new';
       }
-      let txType = row.insertCell();
-      let txTypeValue = document.createElement('td');
-      txTypeValue.innerHTML = `<span class="badge bg-${typeColor}">${cTxs.type.charAt(0).toUpperCase() + cTxs.type.slice(1)}</span>`;
+      const txType = row.insertCell();
+      const txTypeValue = document.createElement('td');
+      txTypeValue.innerHTML = `<span class="badge bg-${typeColor}" style="text-transform:capitalize;">${cTxs.type}</span>`;
       txType.appendChild(txTypeValue);
-      let txAddress = row.insertCell();
-      let txAddressValue = document.createElement('td');
+      const txAddress = row.insertCell();
+      const txAddressValue = document.createElement('td');
       txAddressValue.innerHTML = `${formatName(cTxs.address, isMobile ? 5 : 34)}`;
       txAddress.appendChild(txAddressValue);
-      let txAmount = row.insertCell();
-      let txAmountValue = document.createElement('td');
+      const txAmount = row.insertCell();
+      const txAmountValue = document.createElement('td');
       txAmountValue.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cTxs.ticker}`;
       txAmount.appendChild(txAmountValue);
       txsCounter++;
@@ -151,7 +152,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
     popularToken.innerHTML = `${data[0].name} (${data[0].ticker})`;
     popularToken.setAttribute('href', 'contract.html?id=' + data[0].contract);
 
-    let i, len = data.length;
+    let i; const len = data.length;
     for (i = 0; i < len; i++) {
       // Token variables
       const strContract = data[i].contract;
@@ -162,23 +163,23 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       const nMaxSupply = data[i].maxSupply / COIN;
       
       // Token's row
-      let row = tbodyRef.insertRow();
+      const row = tbodyRef.insertRow();
 
       // Index
-      let tokenNo = row.insertCell();
-      let tokenNoValue = document.createElement('td');
+      const tokenNo = row.insertCell();
+      const tokenNoValue = document.createElement('td');
       tokenNoValue.innerHTML = `<span class="tableNo">${i+1}</span>`;
       tokenNo.appendChild(tokenNoValue);
 
       // Name & Ticker
-      let tokenName = row.insertCell();
-      let tokenNameValue = document.createElement('td');
+      const tokenName = row.insertCell();
+      const tokenNameValue = document.createElement('td');
       tokenNameValue.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${strContract}">${formatName(strName, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(strTicker, 6)})</a><br><span class="scpVersion">SCP-${nVersion}</span>`;
       tokenName.appendChild(tokenNameValue);
 
       // Supply
-      let tokenSupply = row.insertCell();
-      let tokenSupplyValue = document.createElement('td');
+      const tokenSupply = row.insertCell();
+      const tokenSupplyValue = document.createElement('td');
       tokenSupplyValue.innerHTML = `${nHTML(nSupply, isMobile ? 2 : (nSupply > 100 ? 4 : 8))}<br style="margin-bottom: 5px;"><span style="margin-right: 5px;${isMobile ? 'margin-bottom: 5px;' : ''}" class="badge bg-info-new">${percentOf(nSupply, nMaxSupply).toFixed(isMobile ? 1 : 2) + '%'}</span>`;
       if (nVersion === 2 && data[i].APR > 0) {
         tokenSupplyValue.innerHTML += '<span class="badge bg-success-new">' + data[i].APR.toLocaleString('en-US', { maximumFractionDigits: isMobile ? 0 : (data[i].APR > 100 ? 0 : 2)}) + '% APR</span>';
@@ -186,20 +187,14 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       tokenSupply.appendChild(tokenSupplyValue);
 
       // Max Supply
-      let tokenMaxSupply = row.insertCell();
-      let tokenMaxSupplyValue = document.createTextNode(`${nMaxSupply.toLocaleString('en-US')}`);
+      const tokenMaxSupply = row.insertCell();
+      const tokenMaxSupplyValue = document.createTextNode(`${nMaxSupply.toLocaleString('en-US')}`);
       tokenMaxSupply.appendChild(tokenMaxSupplyValue);
     }
 
-    // Remove all duplicated items
-    let arrSingleUsers = allUsers.filter(function(item, pos) {
-      return allUsers.indexOf(item) == pos;
-    });
-    totalUsers.innerHTML = arrSingleUsers.length.toLocaleString('en-GB');
-    for (const cUser of arrSingleUsers) {
-        // Add all user to user list
-        userAddresses.value += cUser + "\r\n";
-    }
+    // Total Users
+    totalUsers.innerHTML = allUsers.length.toLocaleString('en-GB');
+    userAddresses.value = allUsers.join("\r\n");
 });
 
 // --- Utils

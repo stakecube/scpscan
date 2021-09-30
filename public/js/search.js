@@ -1,9 +1,9 @@
 let SearchCoinContract = "";
 
 function multiSearchOr(text, searchWords){
-  for(var i=0; i<searchWords.length; i++)
+  for(const strWord of searchWords)
   {
-   if(text.indexOf(searchWords[i]) == -1)
+   if(text.indexOf(strWord) == -1)
      return false;
   }
   return true;

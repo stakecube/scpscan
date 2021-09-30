@@ -1,6 +1,7 @@
-let hoverEl = document.getElementById('totalUsers');
-let popup = document.getElementById('UsersPopup');
-let totalUsersModal = new bootstrap.Modal(document.getElementById('totalUsersModal'));
+const hoverEl = document.getElementById('totalUsers');
+const popup = document.getElementById('UsersPopup');
+const totalUsersModal = new bootstrap.Modal(document.getElementById('totalUsersModal'));
+const copiedToClip = document.getElementById("copiedToClip");
 
 hoverEl.addEventListener("mouseover", function(e) {
   popup.style.display = 'block';
@@ -11,8 +12,8 @@ hoverEl.addEventListener("mouseout", function(e) {
 });
 
 function fadeOutEffect() {
-  var fadeTarget = document.getElementById("copiedToClip");
-  var fadeEffect = setInterval(function () {
+  const fadeTarget = copiedToClip;
+  let fadeEffect = setInterval(function () {
       if (!fadeTarget.style.opacity) {
           fadeTarget.style.opacity = 1;
       }
@@ -29,9 +30,9 @@ function copyUserAddresses() {
   userAddresses.setSelectionRange(0, 999999);
   navigator.clipboard.writeText(userAddresses.value);
 
-  document.getElementById('copiedToClip').style.display = 'flex';
-  document.getElementById('copiedToClip').style.opacity = 1;
+  copiedToClip.style.display = 'flex';
+  copiedToClip.style.opacity = 1;
   setTimeout(function(){
     fadeOutEffect();
-  } ,1000);
+  },1000);
 }
