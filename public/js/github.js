@@ -6,8 +6,9 @@ function getDownloadUrl(assets, os) {
         if (os === 'Windows' && asset.browser_download_url.endsWith('.exe')) return asset.browser_download_url;
         if (os === 'MacOS' && asset.browser_download_url.endsWith('darwin-x64.zip')) return asset.browser_download_url;
         if (os === 'Linux') return 'https://github.com/stakecube/StakeCubeProtocol';
-        return '';
     }
+    // If there's no OS match to any GitHub asset, simply redirect to GitHub, something is fishy
+    return 'https://github.com/stakecube/StakeCubeProtocol';
 }
 
 function download(url) {
