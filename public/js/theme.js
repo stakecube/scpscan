@@ -37,7 +37,7 @@ if (theme) {
         if (theme === 'dark') document.getElementById('themeBtn').innerText = '☀️ Light Theme';
         // Routinely check the page for links missing the theme specifier
         for (const domLink of document.links) {
-            const fLocalDomain = (domLink.href.startsWith('/') || domLink.href.includes('file:'));
+            const fLocalDomain = (domLink.href.startsWith('/') || domLink.href.includes('file:') || domLink.href.includes('scpscan.net'));
             if (fLocalDomain && !domLink.href.includes('theme=')) {
                 if (domLink.href.includes('?'))
                     domLink.href += '&theme=' + theme;
