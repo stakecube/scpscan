@@ -1,0 +1,253 @@
+body {
+  background-color:#f2f2f2;
+}
+
+.btn {
+  color: white;
+}
+
+.card {
+  box-shadow: 0 0.5rem 1.2rem rgb(189 197 209 / 20%);
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  -moz-box-shadow: 0 3px 3px #eaeaea;
+  -webkit-box-shadow: 0 3px 3px #eaeaea;
+  box-shadow: 0 3px 3px #eaeaea;
+  border-style: solid;
+  border-color: #e6e6e6;
+  border-width: 1px;
+}
+
+.card-header {
+  padding: 12px;
+  border-radius: .5rem!important;
+  color: #000000;
+  font-size: 14px!important;
+  font-weight: 600;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #e7eaf3;
+}
+
+.table .thead-light th {
+  color: #6c757e;
+  background-color: #f8fafd;
+  border-color: #e7eaf3;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  font-size:14px;
+  border-bottom: 2px solid #e7eaf3!important;
+  border-top: 1 px solid #e7eaf3;
+}
+
+.table tbody td {
+  font-size:14px;
+}
+
+.scpVersion {
+  font-size: 11px;
+  font-weight: bold;
+  color:#8989a2 ;
+}
+
+.tableNo {
+  font-weight: bold;
+  color:#676777;
+}
+
+.font-size-14 {
+  font-size:14px;
+}
+
+.hr-space {
+  border-top: 1px solid #e7eaf3;
+  margin-top: .55rem;
+  margin-bottom: .55rem;
+  opacity: .75;
+}
+
+.scpType {
+  color:#929292;
+  font-size:11px;
+}
+
+.no-padding {
+  padding:0px;
+}
+
+.navbar-colour {
+  background-color: #141517 !important;
+  border-bottom-style: solid;
+  border-color: #1dffb4;
+  border-width: 2px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show>.nav-link {
+  color: white;
+  border-style: none;
+  border-bottom-style: solid;
+  border-bottom-color: #0fcad5;
+  border-bottom-width: 1px;
+}
+
+.nav-link-custom {
+  display: block;
+  padding: .6rem 1rem;
+  background: 0 0;
+  border: 0;
+  color:#6C757E;
+  font-weight:600;
+  font-size:14px;
+}
+
+.w-245px {
+  width:245px;
+}
+
+.w-1px {
+  width:1px;
+}
+
+.padding-top-11 {
+  padding-top:11px;
+}
+
+a {
+  color:#0094f6;
+}
+
+a:hover {
+  color: #0fcad5;
+}
+
+.bg-info-new {
+  background-color:#8acedc;
+}
+
+.bg-danger-new {
+  background-color:#e8818b;
+}
+
+.bg-success-new {
+  background-color:#67d4a1;
+}
+
+.bg-secondary-new {
+  background-color:#999ea2;
+}
+
+.fw-500 {
+  font-weight:500;
+}
+
+.hash {
+  font-size: small;
+  font-family: 'Courier New', Courier, monospace;
+  word-wrap: anywhere;
+}
+
+/* CUSTOM SEARCH */
+
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #f7f7f7; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: #e9e9e9 !important; 
+  color: #ffffff; 
+}
+
+.contractSearch {
+  font-size: 11px;
+  color: #898c9e;
+}
+
+.nameSearch {
+  font-size: 13px;
+  color: #000;
+}
+
+.detailsSpan {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7d7d94;
+}
+
+.popup {
+  background-color: rgb(77, 77, 77);
+  color: rgb(255, 255, 255);
+  border-radius: 7px;
+  padding: 3px;
+  width: 160px;
+  position: relative;
+  top: -48px;
+  left: calc(50%);
+  border-bottom-left-radius: 0px;
+  font-size:12px;
+  display:none;
+  z-index:10;
+}
+
+.popup:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  border-top-color: rgb(77, 77, 77);
+  border-bottom: 0;
+  margin-left: -80px;
+  margin-bottom: -6px;
+  border-left: 0;
+}
+
+textarea {
+  resize: none;
+  border-radius: 6px;
+  width:100%;
+  font-family: var(--bs-font-monospace);
+  font-size: .875em;
+  height: 133px;
+}
+
+.cusCarBodySize {
+  height:51px;
+}
