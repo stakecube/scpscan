@@ -158,6 +158,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       // Index
       const tokenNo = row.insertCell();
       tokenNo.innerHTML = `<span class="tableNo">${i + 1}</span>`;
+      tokenNo.style.verticalAlign = 'middle';
 
       // Name & Ticker
       const tokenName = row.insertCell();
@@ -173,6 +174,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       // Max Supply
       const tokenMaxSupply = row.insertCell();
       tokenMaxSupply.innerText = `${nMaxSupply.toLocaleString('en-US')}`;
+      tokenMaxSupply.style.verticalAlign = 'middle';
     }
 
     // Total Users

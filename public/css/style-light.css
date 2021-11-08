@@ -110,6 +110,39 @@ body {
   font-size:14px;
 }
 
+input[type="text"] {
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-bottom: 0.125rem solid rgb(135, 135, 135);
+  width: 100%;
+  height: 3rem;
+  font-size: 1.0625rem;
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
+  line-height: 147.6%;
+  padding-top: 0.825rem;
+  padding-bottom: 0.5rem;
+}
+
+input[type="text"]:hover {
+  border-bottom: 0.125rem solid rgb(87, 87, 87);
+  background-color: transparent;
+  color: white;
+  box-shadow: none;
+}
+
+input[type="text"]:focus {
+  border-bottom: 0.125rem solid #1dffb4d1;
+  background-color: transparent;
+  color: white;
+  box-shadow: none;
+}
+
+tbody, td, tfoot, th, thead, tr {
+  border-color: transparent;
+}
+
 .w-245px {
   width:245px;
 }

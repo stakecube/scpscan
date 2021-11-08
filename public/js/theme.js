@@ -34,7 +34,7 @@ function swapTheme() {
 if (theme) {
     setInterval(() => {
         // Update the theme selector
-        if (theme === 'dark') document.getElementById('themeBtn').innerText = '☀️ Light Theme';
+        if (theme === 'dark') document.getElementById('themeBtn').innerText = '☀️';
         // Routinely check the page for links missing the theme specifier
         for (const domLink of document.links) {
             const fLocalDomain = (domLink.href.startsWith('/') || domLink.href.includes('file:') || domLink.href.includes('scpscan.net'));
@@ -46,4 +46,9 @@ if (theme) {
             }
         }
     }, 1000);
+}
+
+window.onload = () => {
+    // Update the theme selector
+    if (theme === 'dark') document.getElementById('themeBtn').innerText = '☀️';
 }
