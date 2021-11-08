@@ -83,22 +83,18 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     }
   }
   // Sort array on block number (high to low)
-  txsArray.sort(function(a, b) {
-    return b.block - a.block;
-  });
+  txsArray.sort((a, b) => b.block - a.block);
   
   // Get all transactions and put them in table
   for (const cTxs of txsArray) {
     const row = tbodyRef.insertRow();
     const txHash = row.insertCell();
-    const txHashValue = document.createElement('td');
-    //txHashValue.innerHTML = `<a href="transaction.html?id=${cTxs.id}">${formatName(cTxs.id, 21)}</a>`;
-    txHashValue.innerHTML = `<a class="hash" style="text-decoration: none;" href="https://scc.ccore.online/transaction/${cTxs.id}">${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
-    txHash.appendChild(txHashValue);
+    //txHash.innerHTML = `<a href="transaction.html?id=${cTxs.id}">${formatName(cTxs.id, 21)}</a>`;
+    txHash.innerHTML = `<a class="hash" style="text-decoration: none;" href="https://scc.ccore.online/transaction/${cTxs.id}">${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
+
     const txBlock = row.insertCell();
-    const txBlockvalue = document.createElement('td');
-    txBlockvalue.innerHTML = `<span class="badge bg-secondary-new">${cTxs.block.toLocaleString('en-US')}</span>`;
-    txBlock.appendChild(txBlockvalue);
+    txBlock.innerHTML = `<span class="badge bg-secondary-new">${cTxs.block.toLocaleString('en-US')}</span>`;
+
     // Types colors
     let typeColor = 'secondary';
     if(cTxs.type == 'staked') {
@@ -109,17 +105,13 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
       typeColor = 'info-new';
     }
     const txType = row.insertCell();
-    const txTypeValue = document.createElement('td');
-    txTypeValue.innerHTML = `<span class="badge bg-${typeColor}" style="text-transform:capitalize;">${cTxs.type}</span>`;
-    txType.appendChild(txTypeValue);
+    txType.innerHTML = `<span class="badge bg-${typeColor}" style="text-transform:capitalize;">${cTxs.type}</span>`;
+
     const txAddress = row.insertCell();
-    const txAddressValue = document.createElement('td');
-    txAddressValue.innerHTML = `${formatName(cTxs.address, isMobile ? 5 : 34)}`;
-    txAddress.appendChild(txAddressValue);
+    txAddress.innerHTML = `${formatName(cTxs.address, isMobile ? 5 : 34)}`;
+
     const txAmount = row.insertCell();
-    const txAmountValue = document.createElement('td');
-    txAmountValue.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
-    txAmount.appendChild(txAmountValue);
+    txAmount.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
   }
   // Compute TX stats from owners
   for (const cOwner of cToken.owners) {
@@ -140,25 +132,21 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
   let rankNumber = 1;
   for (const richList of arrRichList) {
     const row = tbodyRefHolders.insertRow();
+
     const holdersRank = row.insertCell();
-    const holdersRankValue = document.createElement('td');
-    holdersRankValue.innerHTML = `<span class="fw-500">${rankNumber}</span>`;
-    holdersRank.appendChild(holdersRankValue);
+    holdersRank.innerHTML = `<span class="fw-500">${rankNumber}</span>`;
+
     const holdersAddress = row.insertCell();
-    const holdersAddressValue = document.createElement('td');
-    holdersAddressValue.innerHTML = formatName(richList.address, isMobile ? 5 : 34);
-    holdersAddress.appendChild(holdersAddressValue);
+    holdersAddress.innerHTML = formatName(richList.address, isMobile ? 5 : 34);
+
     const holdersAmount = row.insertCell();
-    const holdersAmountValue = document.createElement('td');
-    holdersAmountValue.innerHTML = `${nHTML(richList.balance / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
-    holdersAmount.appendChild(holdersAmountValue);
+    holdersAmount.innerHTML = `${nHTML(richList.balance / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
+
     const holdersPercentage = row.insertCell();
-    const holdersPercentageValue = document.createElement('td');
-    holdersPercentageValue.innerHTML = `${((richList.balance / cToken.supply) * 100).toFixed(isMobile ? 2 : 4)}%<br>
-    <div class="progress" style="height: 2px; width:100px">
-      <div class="progress-bar" role="progressbar" style="width: ${((richList.balance / cToken.supply) * 100).toFixed(0)}%" aria-valuenow="${((richList.balance / cToken.supply) * 100).toFixed(0)}" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>`;
-    holdersPercentage.appendChild(holdersPercentageValue);
+    holdersPercentage.innerHTML = `${((richList.balance / cToken.supply) * 100).toFixed(isMobile ? 2 : 4)}%<br>
+      <div class="progress" style="height: 2px; width:100px">
+        <div class="progress-bar" role="progressbar" style="width: ${((richList.balance / cToken.supply) * 100).toFixed(0)}%" aria-valuenow="${((richList.balance / cToken.supply) * 100).toFixed(0)}" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>`;
     rankNumber++;
   }
   // (SCP-2 ONLY) Compute staking APR from our largest richlist staker

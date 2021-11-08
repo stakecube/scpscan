@@ -75,9 +75,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       }
       
       // Sort all arrays on block height
-      txsArray.sort(function(a, b) {
-        return b.block - a.block;
-      });
+      txsArray.sort((a, b) => b.block - a.block);
       
       // --- SCP-2 --- APR DATA - (based on a sample of the largest staker)
       if (cToken.version === 2 && cStaker) {
@@ -95,18 +93,14 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
 
       const row = txTable.insertRow();
       const txName = row.insertCell();
-      const txNameValue = document.createElement('td');
-      txNameValue.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${cTxs.contract}">${formatName(cTxs.name, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(cTxs.ticker, 6)})</a>`;
-      txName.appendChild(txNameValue);
+      txName.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${cTxs.contract}">${formatName(cTxs.name, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(cTxs.ticker, 6)})</a>`;
       
       const txHash = row.insertCell();
-      const txHashValue = document.createElement('td');
-      txHashValue.innerHTML = `<a class="hash" style="text-decoration: none;" href="https://scc.ccore.online/transaction/${cTxs.id}">${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
-      txHash.appendChild(txHashValue);
+      txHash.innerHTML = `<a class="hash" style="text-decoration: none;" href="https://scc.ccore.online/transaction/${cTxs.id}">${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
+
       const txBlock = row.insertCell();
-      const txBlockvalue = document.createElement('td');
-      txBlockvalue.innerHTML = `<span class="badge bg-secondary-new">${cTxs.block.toLocaleString('en-US')}</span>`;
-      txBlock.appendChild(txBlockvalue);
+      txBlock.innerHTML = `<span class="badge bg-secondary-new">${cTxs.block.toLocaleString('en-US')}</span>`;
+
       // Types colors
       let typeColor = 'secondary';
       if(cTxs.type == 'staked') {
@@ -117,17 +111,13 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
         typeColor = 'info-new';
       }
       const txType = row.insertCell();
-      const txTypeValue = document.createElement('td');
-      txTypeValue.innerHTML = `<span class="badge bg-${typeColor}" style="text-transform:capitalize;">${cTxs.type}</span>`;
-      txType.appendChild(txTypeValue);
+      txType.innerHTML = `<span class="badge bg-${typeColor}" style="text-transform:capitalize;">${cTxs.type}</span>`;
+
       const txAddress = row.insertCell();
-      const txAddressValue = document.createElement('td');
-      txAddressValue.innerHTML = `${formatName(cTxs.address, isMobile ? 5 : 34)}`;
-      txAddress.appendChild(txAddressValue);
+      txAddress.innerHTML = `${formatName(cTxs.address, isMobile ? 5 : 34)}`;
+
       const txAmount = row.insertCell();
-      const txAmountValue = document.createElement('td');
-      txAmountValue.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cTxs.ticker}`;
-      txAmount.appendChild(txAmountValue);
+      txAmount.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cTxs.ticker}`;
       txsCounter++;
     }
 
@@ -167,29 +157,22 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
 
       // Index
       const tokenNo = row.insertCell();
-      const tokenNoValue = document.createElement('td');
-      tokenNoValue.innerHTML = `<span class="tableNo">${i+1}</span>`;
-      tokenNo.appendChild(tokenNoValue);
+      tokenNo.innerHTML = `<span class="tableNo">${i + 1}</span>`;
 
       // Name & Ticker
       const tokenName = row.insertCell();
-      const tokenNameValue = document.createElement('td');
-      tokenNameValue.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${strContract}">${formatName(strName, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(strTicker, 6)})</a><br><span class="scpVersion">SCP-${nVersion}</span>`;
-      tokenName.appendChild(tokenNameValue);
+      tokenName.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${strContract}">${formatName(strName, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(strTicker, 6)})</a><br><span class="scpVersion">SCP-${nVersion}</span>`;
 
       // Supply
       const tokenSupply = row.insertCell();
-      const tokenSupplyValue = document.createElement('td');
-      tokenSupplyValue.innerHTML = `${nHTML(nSupply, isMobile ? 2 : (nSupply > 100 ? 4 : 8))}<br style="margin-bottom: 5px;"><span style="margin-right: 5px;${isMobile ? 'margin-bottom: 5px;' : ''}" class="badge bg-info-new">${percentOf(nSupply, nMaxSupply).toFixed(isMobile ? 1 : 2) + '%'}</span>`;
+      tokenSupply.innerHTML = `${nHTML(nSupply, isMobile ? 2 : (nSupply > 100 ? 4 : 8))}<br style="margin-bottom: 5px;"><span style="margin-right: 5px;${isMobile ? 'margin-bottom: 5px;' : ''}" class="badge bg-info-new">${percentOf(nSupply, nMaxSupply).toFixed(isMobile ? 1 : 2) + '%'}</span>`;
       if (nVersion === 2 && data[i].APR > 0) {
-        tokenSupplyValue.innerHTML += '<span class="badge bg-success-new">' + data[i].APR.toLocaleString('en-US', { maximumFractionDigits: isMobile ? 0 : (data[i].APR > 100 ? 0 : 2)}) + '% APR</span>';
+        tokenSupply.innerHTML += '<span class="badge bg-success-new">' + data[i].APR.toLocaleString('en-US', { maximumFractionDigits: isMobile ? 0 : (data[i].APR > 100 ? 0 : 2)}) + '% APR</span>';
       }
-      tokenSupply.appendChild(tokenSupplyValue);
 
       // Max Supply
       const tokenMaxSupply = row.insertCell();
-      const tokenMaxSupplyValue = document.createTextNode(`${nMaxSupply.toLocaleString('en-US')}`);
-      tokenMaxSupply.appendChild(tokenMaxSupplyValue);
+      tokenMaxSupply.innerText = `${nMaxSupply.toLocaleString('en-US')}`;
     }
 
     // Total Users
