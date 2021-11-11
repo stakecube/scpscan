@@ -1,14 +1,13 @@
 const opts = new URLSearchParams(document.location.search.substring(1));
-const theme = opts.get('theme');
-if (!theme) {
-    // Light mode is default, so do nothing
-} else if (theme === 'dark') {
+const theme = opts.get('theme') || 'light';
+
+if (theme === 'dark') {
     // Switch to the dark stylesheet
     document.getElementById('theme').setAttribute('href', 'css/style-dark.css');
 }
 
 function swapTheme() {
-    if (!theme || theme === 'light') {
+    if (theme === 'light') {
         if (document.location.href.includes('theme=')) {
             window.location = document.location.href.replace('light', 'dark');
         } else {
@@ -30,25 +29,29 @@ function swapTheme() {
     }
 }
 
-// Here's our trick to evade using cookies for remembering themes... mwahahaha, go away GDPR!
-if (theme) {
-    setInterval(() => {
-        // Update the theme selector
-        if (theme === 'dark') document.getElementById('themeBtn').innerText = '☀️';
-        // Routinely check the page for links missing the theme specifier
-        for (const domLink of document.links) {
-            const fLocalDomain = (domLink.href.startsWith('/') || domLink.href.includes('file:') || domLink.href.includes('scpscan.net'));
-            if (fLocalDomain && !domLink.href.includes('theme=')) {
-                if (domLink.href.includes('?'))
-                    domLink.href += '&theme=' + theme;
-                else
-                    domLink.href += '?theme=' + theme;
-            }
-        }
-    }, 1000);
+function getThemeQuery(addon = false) {
+    return (addon ? '&' : '?') + 'theme=' + theme;
 }
 
-window.onload = () => {
+// Here's our trick to evade using cookies for remembering themes... mwahahaha, go away GDPR!
+setInterval(() => {
     // Update the theme selector
-    if (theme === 'dark') document.getElementById('themeBtn').innerText = '☀️';
+    if (theme === 'dark') themeBtn.innerText = '☀️';
+    // Routinely check the page for links missing the theme specifier
+    for (const domLink of document.links) {
+        const fLocalDomain = (domLink.href.startsWith('/') || domLink.href.includes('file:') || domLink.href.includes('127.0.0.1') || domLink.href.includes('scpscan.net'));
+        if (fLocalDomain && !domLink.href.includes('theme=')) {
+            if (domLink.href.includes('?'))
+                domLink.href += '&theme=' + theme;
+            else
+                domLink.href += '?theme=' + theme;
+        }
+    }
+}, 1000);
+
+let themeBtn;
+window.onload = () => {
+    themeBtn = document.getElementById('themeBtn');
+    // Update the theme selector
+    if (theme === 'dark') themeBtn.innerText = '☀️';
 }

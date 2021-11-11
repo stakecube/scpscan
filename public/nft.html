@@ -1,0 +1,124 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SCPscan - NFT Details</title>
+  <meta name="description"
+    content="Discover the world of StakeCube Protocol (SCP), search for tokens and TXs, calculate APRs and Earnings, and perform in-depth analysis of any part of the network." />
+  <meta name="copyright" content="StakeCube">
+  <meta name="language" content="EN">
+  <meta name="url" content="https://scpscan.net">
+  <meta name="identifier-URL" content="https://scpscan.net">
+  <meta name="coverage" content="Worldwide">
+  <meta name="distribution" content="Global">
+
+  <meta name="og:title" content="SCPscan" />
+  <meta name="og:site_name" content="SCPscan" />
+  <meta name="og:url" content="https://scpscan.net" />
+  <meta name="og:description"
+    content="Discover the world of StakeCube Protocol (SCP), search for tokens and TXs, calculate APRs and Earnings, and perform in-depth analysis of any part of the network." />
+  <meta name="theme-color" content="#0ca5e4" />
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link id="theme" href="css/style-light.css" rel="stylesheet">
+  <script src="js/theme.js"></script>
+  <script src="js/utils.js"></script>
+</head>
+
+<body>
+
+  <header style="margin-bottom:80px;">
+    <nav class="navbar navbar-colour navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">SCPscan</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Tokens</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/collections.html">NFTs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/download.html">Downloads</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="themeBtn" onclick="swapTheme()">🌙</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="d-inline-flex flex-column lh-sm" style="position: relative; top: -0.75em; text-align: center;">
+          <span id="nftName" style="font-size:x-large;">Loading NFT</span>
+          <span id="nftMintCount" style="font-size:0.75em;background-color:transparent;color:#0fcad5;">Loading Edition...</span>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div id="nftImg" class="nftImg"></div>
+        </div>
+        <div class="col-12 col-md-8">
+          <div class="card mb-4">
+            <div class="card-header p-4 pb-0 pt-3 card-header-nft">
+              Details
+            </div>
+            <div class="card-body p-4 pt-2">
+              <b>ID</b><br>
+              <div class="badge badge-code" id="nftId">-</div><br><br>
+              <b>IPFS CID</b><br>
+              <div class="badge badge-code" id="nftIpfsCid">-</div><br><br>
+              <b>OWNER ADDRESS</b><br>
+              <div class="badge badge-code" id="nftAddr">-</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header p-4 pb-0 pt-3 card-header-nft">
+              Activity
+            </div>
+            <div class="card-body p-4 pt-2">
+              <div class="table-responsive">
+                <table class="table" id="activityList">
+                  <thead>
+                    <tr>
+                      <th scope="col">Tx</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">From</th>
+                      <th scope="col">To</th>
+                      <th scope="col">Block</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </main>
+
+  <script src="js/jquery-latest.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/nft.js"></script>
+</body>
+
+</html>

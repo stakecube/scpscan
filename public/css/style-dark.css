@@ -327,3 +327,81 @@ textarea {
 .cusCarBodySize {
   height:51px;
 }
+
+.nft-card {
+  cursor:pointer;
+  height:275px;
+  background-size: cover!important;
+  border-radius:16px;
+  border: 1px solid #0094f6;
+  box-shadow: 0 0 25px 5px #0094f638;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.125s;
+  opacity: 0.8;
+}
+
+.nft-card:hover {
+  opacity: 1 !important;
+}
+
+.nftname {
+  margin-top:20px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background-color: #0094f6;
+  color: white;
+}
+
+.nftImg {
+  width:100%;
+  background-color:transparent;
+  background-size: cover!important;
+  background-position-x: center!important;
+  border-radius:20px;
+}
+
+.card-header-nft {
+  font-size: 18px!important;
+  font-weight: bold;
+}
+
+.badge-code {
+  color:#08ACB9;
+  font-size:14px;
+  background-color:#000;
+  font-family: var(--bs-font-monospace);
+  padding:.35em .35rem!important;
+  word-break: break-all;
+  white-space: normal;
+}
+
+/* Responsiveness for nftImg */
+@media (max-width: 768px) {
+  .nftImg {
+    height:500px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .nftImg {
+    height:300px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .nftImg {
+    height:450px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .nftImg {
+    height:450px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .nftImg {
+    height:550px;
+  }
+}

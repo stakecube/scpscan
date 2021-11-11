@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>SCPscan - Tokens List</title>
+  <title>SCPscan - Collections List</title>
   <meta name="description"
     content="Discover the world of StakeCube Protocol (SCP), search for tokens and TXs, calculate APRs and Earnings, and perform in-depth analysis of any part of the network." />
   <meta name="copyright" content="StakeCube">
@@ -40,10 +40,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Tokens</a>
+              <a class="nav-link" href="/">Tokens</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/collections.html">NFTs</a>
+              <a class="nav-link active" aria-current="page">NFTs</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/download.html">Downloads</a>
@@ -52,11 +52,6 @@
               <a class="nav-link" id="themeBtn" onclick="swapTheme()">🌙</a>
             </li>
           </ul>
-          <form class="d-flex my-0">
-            <div class="autocomplete" style="width:300px;">
-              <input class="form-control" id="myInput" type="text" placeholder="Search">
-            </div>
-          </form>
         </div>
       </div>
     </nav>
@@ -64,35 +59,16 @@
 
   <main>
 
-    <div class="modal fade" id="totalUsersModal" tabindex="-1" aria-labelledby="totalUsersModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="totalUsersModalLabel" style="color: black">Total Users (Addresses)</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <textarea readonly aria-readonly="true" id="userAddresses" style="text-align:center;"></textarea>
-          </div>
-          <div class="modal-footer">
-            <span class="badge bg-success-new" style="display:none; position: absolute; left: 19px;" id="copiedToClip">Copied to clipboard</span>
-            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-sm btn-primary" onclick="copyUserAddresses()">Copy</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="container">
       <div class="row">
-
+        
         <div class="col-6 col-md-3 mb-3">
           <div class="card">
             <div class="card-header text-center">
-              24h Transactions
+              NFTs Minted
             </div>
             <div class="card-body text-center">
-              <span id="24hTransactions" class="detailsSpan">-</span>
+              <span id="totalNftsMinted" class="detailsSpan">-</span>
             </div>
           </div>
         </div>
@@ -100,10 +76,10 @@
         <div class="col-6 col-md-3 mb-3">
           <div class="card">
             <div class="card-header text-center">
-              Most Popular Token
+              NFTs Burned
             </div>
             <div class="card-body text-center">
-              <a id="mostPopularToken" class="detailsSpan">-</a>
+              <span id="totalNftsBurned" class="detailsSpan">-</span>
             </div>
           </div>
         </div>
@@ -111,11 +87,10 @@
         <div class="col-6 col-md-3 mb-3">
           <div class="card">
             <div class="card-header text-center">
-              Total Users
+              Most Popular Coll.
             </div>
-            <div class="card-body text-center cusCarBodySize">
-              <span id="totalUsers" class="detailsSpan" onclick="totalUsersModal.show();" style="cursor:pointer;text-decoration-line:underline;">-</span>
-              <div class="popup" id="UsersPopup">Click for more info</div>
+            <div class="card-body text-center">
+              <a id="popularColl" class="detailsSpan">-</a>
             </div>
           </div>
         </div>
@@ -123,7 +98,7 @@
         <div class="col-6 col-md-3 mb-3">
           <div class="card">
             <div class="card-header text-center">
-              Total Tokens
+              Total Collections
             </div>
             <div class="card-body text-center">
               <span id="totalTokens" class="detailsSpan">-</span>
@@ -134,17 +109,18 @@
         <div class="col-12 mb-3">
           <div class="card">
             <div class="card-header">
-              Tokens
+              Collections
             </div>
             <div class="card-body px-2 py-2">
               <div class="table-responsive">
-                <table class="table" id="tokensTable">
+                <table class="table" id="collectionsTable">
                   <thead class="thead-light">
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Name</th>
                       <th scope="col">Supply</th>
-                      <th scope="col">Max. Supply</th>
+                      <th scope="col">Max Mints</th>
+                      <th scope="col">Protected</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -154,41 +130,12 @@
             </div>
           </div>
         </div>
-
-        <div class="col-12 mb-3">
-          <div class="card">
-            <div class="card-header">
-              Recent Transactions
-            </div>
-            <div class="card-body px-2 py-2">
-              <div class="table-responsive">
-                <table class="table" id="txTable">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Token</th>
-                      <th scope="col" class="w-245px">TX-ID</th>
-                      <th scope="col">Block</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Address</th>
-                      <th scope="col">Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
 
   </main>
 
   <script src="js/jquery-latest.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/search.js"></script>
-  <script src="js/hoverTotalUsers.js"></script>
+  <script src="js/collections.js"></script>
 </body>
 
 </html>
