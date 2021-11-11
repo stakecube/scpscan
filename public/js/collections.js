@@ -39,7 +39,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getallcollectionheaders', f
 
       // Name
       const tokenName = row.insertCell();
-      tokenName.innerHTML = `<a style="text-decoration: none" title="${strName}" href="nfts.html?id=${strContract}">${formatName(strName, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}</a><br><span class="scpVersion">SCP-${nVersion}</span>`;
+      tokenName.innerHTML = `<a style="text-decoration: none" title="${strName}" href="nfts.html?id=${strContract}">${formatName(strName, isMobile ? 9 : 30)}</a><br><span class="scpVersion">SCP-${nVersion}</span>`;
 
       // Supply
       const tokenSupply = row.insertCell();
