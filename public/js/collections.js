@@ -18,12 +18,8 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getallcollectionheaders', f
     let i = 0;
     for (const cColl of data.sort((a, b) => (b.totalNFTs - b.burnedNFTs) - (a.totalNFTs - a.burnedNFTs))) {
       // Token variables
-      const strContract = cColl.contract;
-      const nVersion = cColl.version;
-      const strName = cColl.collectionName;
       const nSupply = cColl.totalNFTs - cColl.burnedNFTs;
       const nMaxMints = cColl.maxMints - cColl.burnedNFTs;
-      const nProtected = cColl.protected;
 
       // Add our stats
       nTotalMints += cColl.mints;
@@ -39,7 +35,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getallcollectionheaders', f
 
       // Name
       const tokenName = row.insertCell();
-      tokenName.innerHTML = `<a style="text-decoration: none" title="${strName}" href="nfts.html?id=${strContract}">${formatName(strName, isMobile ? 9 : 30)}</a><br><span class="scpVersion">SCP-${nVersion}</span>`;
+      tokenName.innerHTML = `<a style="text-decoration: none" title="${cColl.collectionName}" href="nfts.html?id=${cColl.contract}">${formatName(cColl.collectionName, isMobile ? 9 : 30)}</a><br><span class="scpVersion">SCP-${cColl.version}</span>`;
 
       // Supply
       const tokenSupply = row.insertCell();
@@ -62,8 +58,8 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getallcollectionheaders', f
 
       // Max Mints
       const tokenProtected = row.insertCell();
-      tokenProtected.innerHTML = `<b>${(nProtected ? 'Yes' : 'No')}</b>`;
-      tokenProtected.setAttribute('title', 'These NFTs ' + (nProtected ? 'cannot' : 'can') + ' be burned!');
+      tokenProtected.innerHTML = `<b>${(cColl.protected ? 'Yes' : 'No')}</b>`;
+      tokenProtected.setAttribute('title', 'These NFTs ' + (cColl.protected ? 'cannot' : 'can') + ' be burned!');
       tokenProtected.style.verticalAlign = 'middle';
 
       i++;

@@ -111,8 +111,14 @@
 
       </div>
 
-      <div class="row" id="nftList">
+      <div id="search" class="omrs-input-group" style="min-width: 50%;margin-left: auto;margin-right: auto;max-width: 100%; margin-top:1em;">
+        <label class="omrs-input-underlined">
+          <input class="darkerInput" oninput="renderNFTs(this.value.replace(/ /g, ' ').toLowerCase())" required="" type="text">
+          <span class="omrs-input-label">Search (name, contract or creator)</span>
+        </label>
       </div>
+
+      <div class="row" id="nftList"></div>
 
   </main>
 
