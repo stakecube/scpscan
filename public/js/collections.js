@@ -35,23 +35,22 @@ function renderCollections() {
 
   // --- DISTRO CALCULATIONS ---
   // Sort the data by distribution
-  data.sort((a, b) => ((b.totalNFTs - b.burnedNFTs) > 0 ? percentOf(b.holders, b.totalNFTs - b.burnedNFTs) : 0) -
-                      ((a.totalNFTs - a.burnedNFTs) > 0 ? percentOf(a.holders, a.totalNFTs - a.burnedNFTs) : 0));
+  data = _.sortBy(data, [(a) => -((a.totalNFTs - a.burnedNFTs) > 0 ? percentOf(a.holders, a.totalNFTs - a.burnedNFTs) : 0)]);
   data.map(a => a.distroRank = (data.findIndex(b => b.index === a.index) + 1));
 
   // --- TX CALCULATIONS ---
   // Sort the data by TX velocity (Total TXs divided by Holders)
-  data.sort((a, b) => (((b.totalTXs - b.mints) * b.holders) / (b.totalNFTs - b.burnedNFTs)) - (((a.totalTXs - a.mints) * a.holders) / (a.totalNFTs - a.burnedNFTs)));
+  data = _.sortBy(data, [(a) => -(((a.totalTXs - a.mints) * a.holders) / (a.totalNFTs - a.burnedNFTs))]);
   data.map(a => a.velocityRank = (data.findIndex(b => b.index === a.index) + 1));
 
   // --- AGE CALCULATIONS ---
   // Sort the data by age
-  data.sort((a, b) => b.age.blocks - a.age.blocks);
+  data = _.sortBy(data, [(a) => -a.age.blocks]);
   data.map(a => a.ageRank = (data.findIndex(b => b.index === a.index) + 1));
 
   // --- COMPLETENESS CALCULATIONS ---
   // Sort the data by completeness (the percentage of the supply minted to the max supply)
-  data.sort((a, b) => percentOf(b.totalNFTs - b.burnedNFTs, b.maxMints - b.burnedNFTs) - percentOf(a.totalNFTs - a.burnedNFTs, a.maxMints - a.burnedNFTs));
+  data = _.sortBy(data, [(a) => -percentOf(a.totalNFTs - a.burnedNFTs, a.maxMints - a.burnedNFTs)]);
   data.map(a => a.completeRank = (data.findIndex(b => b.index === a.index) + 1));
 
   // Ensure that complete-tied ranks share the same rank
@@ -67,8 +66,7 @@ function renderCollections() {
 
   // --- GLOBAL RANKING ---
   // Sort the data by all rankings multiplied by eachother
-  data.sort((a, b) => (a.distroRank * a.velocityRank * a.ageRank * a.completeRank * (a.verified ? 1 : 2)) -
-                      (b.distroRank * b.velocityRank * b.ageRank * b.completeRank * (b.verified ? 1 : 2)));
+  data = _.sortBy(data, [(a) => (a.distroRank * a.velocityRank * a.ageRank * a.completeRank * (a.verified ? 1 : 2))]);
 
   i = 0;
   for (const cColl of data) {

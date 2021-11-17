@@ -43,8 +43,9 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getnft/' + id, (data) => {
     }
 
     $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getcollection/' + data.collection, (collData) => {
-        const mintPos = collData.nfts.findIndex(a => a.id === data.nft) + 1;
-        const maxPos = collData.nfts.reduce((a, b) => { return a + (b.owner === null ? 0 : 1) }, 0);
+        const nBurned = collData.nfts.reduce((a, b) => a + (b.owner === null ? 1 : 0), 0);
+        const mintPos = collData.nfts.filter(a => a.owner !== null).findIndex(a => a.id === data.nft) + 1;
+        const maxPos = collData.nfts.length - nBurned;
         nftMintCount.innerHTML = '<b>#' + mintPos.toLocaleString('en-GB') + '</b><b style="opacity: 0.75">/' + maxPos + '</b>';
     });
 });
