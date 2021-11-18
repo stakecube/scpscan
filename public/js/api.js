@@ -159,7 +159,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       // Supply
       const tokenSupply = row.insertCell();
       const tokenSupplyPct = percentOf(nSupply, nMaxSupply).toFixed(isMobile ? 1 : 2) + '%';
-      tokenSupply.innerHTML = `${nHTML(nSupply, isMobile ? 2 : (nSupply > 100 ? 4 : 8))}<br style="margin-bottom: 5px;"><span style="cursor:pointer;margin-right:5px;${isMobile ? 'margin-bottom:5px;' : ''}" class="badge bg-info-new" title="${tokenSupplyPct} of the total ${formatName(strTicker, 6)} supply has been minted!">${tokenSupplyPct}</span>`;
+      tokenSupply.innerHTML = `${nHTML(nSupply, isMobile ? 2 : (nSupply > 100 ? 4 : 8))}<br style="margin-bottom: 5px;"><span style="cursor:pointer;margin-right:5px;${isMobile ? 'margin-bottom:5px;' : ''}" class="badge bg-info-new" title="${nSupply === 0 ? 'This token is new! The creator has not issued any supply yet.' : (tokenSupplyPct + ' of the total ' + formatName(strTicker, 6) + ' supply has been minted!')}">${nSupply === 0 ? 'New!' : tokenSupplyPct}</span>`;
       if (nVersion === 2 && data[i].APR > 0) {
         const tokenAPRStr = data[i].APR.toLocaleString('en-US', { maximumFractionDigits: isMobile ? 0 : (data[i].APR > 100 ? 0 : 2)}) + '%';
         tokenSupply.innerHTML += '<span style="cursor:pointer" class="badge bg-success-new" title="' + formatName(strTicker, 6) + ' rewards it\'s holders with ' + tokenAPRStr + ' APR">' + tokenAPRStr + ' APR</span>';
