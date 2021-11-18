@@ -102,9 +102,11 @@ window.onload = () => {
     landBtn = document.getElementById('landscapeBtn');
     // Update the theme selector
     if (theme === 'dark') themeBtn.innerText = '☀️';
-    // Update the display
-    if (displayType === 'portrait')
-        portrait(false);
-    else
-        landscape(false);
+    // Update the display (if applicable)
+    if (portBtn) {
+        if (displayType === 'portrait')
+            portrait(false);
+        else
+            landscape(false);
+    }
 }
