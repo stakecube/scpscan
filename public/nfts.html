@@ -113,10 +113,17 @@
 
       <div id="search" class="omrs-input-group" style="min-width: 50%;margin-left: auto;margin-right: auto;max-width: 100%; margin-top:1em;">
         <label class="omrs-input-underlined">
-          <input class="darkerInput" oninput="renderNFTs(this.value.replace(/ /g, ' ').toLowerCase())" required="" type="text">
+          <input class="darkerInput" id="searchInput" oninput="renderNFTs(this.value.replace(/ /g, ' ').toLowerCase())" required="" type="text">
           <span class="omrs-input-label">Search (name, contract or creator)</span>
         </label>
       </div>
+
+      <div style="height: 1em;">
+        <i id="landscapeBtn" onclick="landscape()" style="cursor:pointer;margin-bottom: 1em;background-color: #0094f645;position: relative;display: block;width: fit-content;float: right;font-size: small;margin-left: 0.5em;" class="badge bg-info-new fa-solid fa-left-right"></i>
+        <i id="portraitBtn" onclick="portrait()" style="cursor:default;margin-bottom: 1em;background-color: #0094f6c7;position: relative;display: block;width: fit-content;float: right;font-size: small;" class="badge bg-info-new fa-solid fa-up-down"></i>
+      </div>
+
+      <br>
 
       <div class="row" id="nftList"></div>
 
@@ -125,6 +132,7 @@
   <script src="js/jquery-latest.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/nfts.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
 </body>
 
 </html>
