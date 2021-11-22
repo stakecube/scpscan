@@ -42,7 +42,7 @@ function renderNFTs(query = '') {
       if (query.length && !(cNFT.name.toLowerCase().includes(query) || cNFT.owner.toLowerCase().includes(query) || query.includes(cNFT.id) || query.includes(cNFT.imgUrl))) continue;
       strRender += `
         <div class="col-${isMobile ? (getDisplayType() === 'portrait'?'6':'12') : '6'} col-md-4 col-lg-${getDisplayType() === 'portrait'?'3':'6'} col-xl-${getDisplayType() === 'portrait'?'2':'6'} mb-4">
-          <div class="nft-card" onclick="window.location.href='nft.html?id=${cNFT.id + getAllAddonSettings()}'" style="background:url('https://cloudflare-ipfs.com/ipfs/${cNFT.imgUrl}'), url('https://ipfs.infura.io:5001/api/v0/cat/${cNFT.imgUrl}'), url('https://ipfs.io/ipfs/${cNFT.imgUrl}') no-repeat; background-position-x: center;${getDisplayType() === 'landscape' ? 'background-position-y:center;' : ''}">
+          <div class="nft-card" onclick="window.location.href='nft.html?id=${cNFT.id + getAllAddonSettings()}'" style="background:url('https://cloudflare-ipfs.com/ipfs/${cNFT.imgUrl}'), url('https://ipfs.infura.io:5001/api/v0/cat/${cNFT.imgUrl}'), url('https://ipfs.io/ipfs/${cNFT.imgUrl}') no-repeat; background-position-x:center; background-position-y:center;">
             <div class="badge nftname">
               ${formatName(cNFT.name, 20)}
             </div>
