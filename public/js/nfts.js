@@ -13,6 +13,7 @@ const domSupply = document.getElementById('totalSupply');
 const domMaxSupply = document.getElementById('maxSupply');
 const domTotalHolders = document.getElementById('totalHolders');
 const domTotalBurns = document.getElementById('totalBurns');
+const domTotalBurnsTxt = document.getElementById('totalBurnsTxt');
 
 function renderNFTs(query = '') {
   if (!data) return;
@@ -56,7 +57,12 @@ function renderNFTs(query = '') {
   domTotalHolders.innerText = arrOwners.length.toLocaleString('en-GB');
 
   // Total Burns
-  domTotalBurns.innerText = nTotalBurns.toLocaleString('en-GB');
+  if (nTotalBurns > 0){
+  	domTotalBurns.innerText = nTotalBurns.toLocaleString('en-GB');
+  }
+  else{
+	getInfoCollection();
+  }
 }
 
 // Fetch and render the collection!
@@ -64,3 +70,21 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getcollection/' + id, funct
     data = res;
     renderNFTs();
 });
+
+function getInfoCollection(){
+	$.getJSON('https://stakecube.io/api/v2/marketplace/collection?contract=' + id, function(res) {
+		if (res.success){
+			var nftsSold = res.result.nftsSold.length;
+			var nftsForSale = res.result.nftsForSale.length;
+			
+			if (nftsSold > 0){
+				domTotalBurnsTxt.innerText = 'Total sold in the Marketplace';
+				domTotalBurns.innerHTML = '<a href="https://stakecube.net/app/marketplace/" target="_blank" style="text-decoration: none;">'+nftsSold+'</a>';
+			}
+			else if (nftsForSale > 0){
+				domTotalBurnsTxt.innerText = 'Total for sale in the Marketplace';
+				domTotalBurns.innerText = '<a href="https://stakecube.net/app/marketplace/" target="_blank" style="text-decoration: none;">'+nftsForSale+'</a>';
+			}
+		}
+	});
+}
