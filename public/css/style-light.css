@@ -496,3 +496,9 @@ div.omrs-input-group {
     height:550px;
   }
 }
+
+.logo-title {
+  height: 26px;
+  position: relative;
+  top: -2px;
+}
