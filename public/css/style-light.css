@@ -502,3 +502,17 @@ div.omrs-input-group {
   position: relative;
   top: -2px;
 }
+
+.btn-stakecube {
+  background-color:#0FCAD5;
+  color:#fff;
+}
+
+.btn-stakecube:hover {
+  background-color:#0fb9c2;
+  color:#fff;
+}
+
+.btn-stakecube:focus {
+  box-shadow:none;
+}
