@@ -1,5 +1,3 @@
-let SearchCoinContract = "";
-
 function multiSearchOr(text, searchWords){
   for(const strWord of searchWords)
   {
