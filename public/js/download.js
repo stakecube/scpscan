@@ -18,7 +18,7 @@ $.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases', f
 		            t += '<tr>';
 					t += '<td><a href="'+asset.browser_download_url+'" target="_blank">'+name+'</a></td>';
 					t += '<td>'+getOS(asset.name)+'</td>';
-		            t += '<td>'+getKind(asset.content_type)+'</td>';
+		            t += '<td>'+getKind(asset.content_type,asset.name)+'</td>';
 					t += '<td>'+getArch(asset.name)+'</td>';
 		            t += '<td>'+FileSizeConvert(asset.size)+'</td>';
 					t += '<td>'+getDate(asset.updated_at)+'</td>';
@@ -70,12 +70,23 @@ $.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases', f
         return result;
     }
     
-    function getKind(type){
+    function getKind(type, name){
 		var kind = '';
+		var txts = name.split(".");
+		var ext = txts[txts.length - 1];
 		switch(type){
 			case "application/x-msdownload": kind = 'Installer';
 			break;
-			case "application/octet-stream": kind = 'Signature';
+			case "application/octet-stream": 
+				if (ext === 'exe'){
+					kind = 'Installer';
+				}
+				else if(ext === 'sig'){
+					kind = 'Signature';
+				}
+				else{
+					kind = 'Signature';
+				} 
 			break;
 			case "application/x-zip-compressed": kind = 'Archive';
 			break;
