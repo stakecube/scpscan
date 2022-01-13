@@ -22,6 +22,8 @@ const domVersion = document.getElementById('scpType');
 const domMaxSupply = document.getElementById('maxSupply');
 const domHolders = document.getElementById('holders');
 const domTransfers = document.getElementById('transfers');
+const domOfficialSite = document.getElementById('officialSite');
+const domSocialProfiles = document.getElementById('socialProfiles');
 const domAprTab = document.getElementById('aprTab');
 const domApr = document.getElementById('apr');
 const tbodyRef = document.getElementById('txTable').getElementsByTagName('tbody')[0];
@@ -59,6 +61,24 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
   } else {
     domStakingInput.max = cToken.supply / COIN;
     domStakingInput.placeholder = "100 " + cToken.ticker;
+  }
+  
+ /* cToken.socialProfiles  = {
+    "discord": 'http://www.google.it',
+    "facebook": 'http://www.google.it',
+    "twitter": 'http://www.google.it',
+	};*/
+
+  if(cToken.hasOwnProperty('officialSite')){
+	domOfficialSite.innerHTML = `<a href="${cToken.officialSite}" target="_blank" style="text-decoration: none;">${cToken.officialSite}</a>`;
+  }
+  if(cToken.hasOwnProperty('socialProfiles')){
+	var links='';
+	for (var key in cToken.socialProfiles) {
+    	var value = cToken.socialProfiles[key];
+    	links += `<a href="${value}" target="_blank" style="text-decoration: none; margin-right: 10px;">`+getIcon(key)+`</a>`;
+	}
+	domSocialProfiles.innerHTML = links;
   }
   // Get all transactions and put them in an array
   const txsArray = [];
@@ -189,4 +209,19 @@ function calcRewards(strAmount) {
   domCalcReward4.innerHTML = nHTML(nReward, nReward > 100 ? 2 : 8) + " " + cToken.ticker;
   nReward = (nAmount * (nAPR / 100));
   domCalcReward5.innerHTML = nHTML(nReward, nReward > 100 ? 2 : 8) + " " + cToken.ticker;
+}
+
+function getIcon(key){
+	var value = '<img src="';
+	switch(key){
+		case 'facebook':value += 'img/facebook.png';
+			break;
+		case 'discord': value += 'img/discord.png';
+			break;
+		case 'twitter': value += 'img/twitter.png';
+			break;
+		default: value += 'img/link.png';
+	}
+	value += '" width="30px" title="'+key+'">';
+	return value;
 }

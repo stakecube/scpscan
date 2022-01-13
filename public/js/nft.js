@@ -9,12 +9,14 @@ const nftId = document.getElementById('nftId');
 const nftIpfsCid = document.getElementById('nftIpfsCid');
 const nftAddr = document.getElementById('nftAddr');
 const activityList = document.getElementById('activityList').getElementsByTagName('tbody')[0];
+var imgUrl = ''; 
 
 $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getnft/' + id, (data) => {
     // NFT name
     nftName.innerText = isMobile ? formatName(data.name, 20) : data.name;
     // Image
     nftImg.style.background = `url('https://cloudflare-ipfs.com/ipfs/${data.imgUrl}'), url('https://ipfs.infura.io:5001/api/v0/cat/${data.imgUrl}'), url('https://ipfs.io/ipfs/${data.imgUrl}') no-repeat center center`;
+    imgUrl = data.imgUrl;
     // ID
     nftId.innerText = data.nft;
     // IPFS CID
@@ -49,3 +51,42 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getnft/' + id, (data) => {
         nftMintCount.innerHTML = '<b>#' + mintPos.toLocaleString('en-GB') + '</b><b style="opacity: 0.75">/' + maxPos + '</b>';
     });
 });
+
+$('#nftImg').css('cursor','pointer');
+
+// Get the modal
+var modal = document.getElementById('fullsizeModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById('nftImg');
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+    modal.style.display = "block";
+    $.get( "https://cloudflare-ipfs.com/ipfs/"+ imgUrl, function() {
+  		modalImg.src = "https://cloudflare-ipfs.com/ipfs/"+ imgUrl;
+	})
+    .fail(function() {
+	    $.get( "https://ipfs.infura.io:5001/api/v0/cat/"+ imgUrl, function() {
+	  		modalImg.src = "https://ipfs.infura.io:5001/api/v0/cat/"+ imgUrl;
+		})
+	    .fail(function() {
+		    $.get( "https://ipfs.io/ipfs/"+ imgUrl, function() {
+		  		modalImg.src = "https://ipfs.io/ipfs/"+ imgUrl;
+			})
+		    .fail(function() {
+			
+		  	});
+	  	});
+  	});
+	
+    captionText.innerHTML = nftName.innerText;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close-img")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+    modal.style.display = "none";
+}
