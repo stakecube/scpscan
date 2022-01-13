@@ -63,22 +63,25 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     domStakingInput.placeholder = "100 " + cToken.ticker;
   }
   
- /* cToken.socialProfiles  = {
-    "discord": 'http://www.google.it',
-    "facebook": 'http://www.google.it',
-    "twitter": 'http://www.google.it',
-	};*/
-
-  if(cToken.hasOwnProperty('officialSite')){
-	domOfficialSite.innerHTML = `<a href="${cToken.officialSite}" target="_blank" style="text-decoration: none;">${cToken.officialSite}</a>`;
+  // MMT - Moments Token
+  if (cToken.contract === '063d1363528d29670cd8b0541e31a9c2d53edfff6070490ba165d9569111bc26') {
+    cToken.officialSite = 'https://app.moments.market';
+    cToken.socialProfiles  = {
+      "Discord": 'https://discord.gg/pGNV6RmMdp',
+      "Twitter": 'https://twitter.com/momentsmarket'
+	  };
   }
-  if(cToken.hasOwnProperty('socialProfiles')){
-	var links='';
-	for (var key in cToken.socialProfiles) {
-    	var value = cToken.socialProfiles[key];
-    	links += `<a href="${value}" target="_blank" style="text-decoration: none; margin-right: 10px;">`+getIcon(key)+`</a>`;
-	}
-	domSocialProfiles.innerHTML = links;
+
+  if (cToken.hasOwnProperty('officialSite')) {
+	  domOfficialSite.innerHTML = `<a href="${cToken.officialSite}" target="_blank" style="text-decoration: none;">${cToken.officialSite}</a>`;
+  }
+  if (cToken.hasOwnProperty('socialProfiles')) {
+    let links = '';
+    for (const key in cToken.socialProfiles) {
+        const value = cToken.socialProfiles[key];
+        links += `<a href="${value}" target="_blank" style="text-decoration: none; margin-right: 10px;">` + getIcon(key) + `</a>`;
+    }
+    domSocialProfiles.innerHTML = links;
   }
   // Get all transactions and put them in an array
   const txsArray = [];
@@ -212,16 +215,16 @@ function calcRewards(strAmount) {
 }
 
 function getIcon(key){
-	var value = '<img src="';
+	let value = '<img src="';
 	switch(key){
-		case 'facebook':value += 'img/facebook.png';
+		case 'Facebook': value += 'img/facebook.png';
 			break;
-		case 'discord': value += 'img/discord.png';
+		case 'Discord': value += 'img/discord.png';
 			break;
-		case 'twitter': value += 'img/twitter.png';
+		case 'Twitter': value += 'img/twitter.png';
 			break;
 		default: value += 'img/link.png';
 	}
-	value += '" width="30px" title="'+key+'">';
+	value += '" width="30px" title="' + key + '">';
 	return value;
 }
