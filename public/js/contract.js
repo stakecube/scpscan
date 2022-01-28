@@ -104,7 +104,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     const row = tbodyRef.insertRow();
     const txHash = row.insertCell();
     //txHash.innerHTML = `<a href="transaction.html?id=${cTxs.id}">${formatName(cTxs.id, 21)}</a>`;
-    txHash.innerHTML = `<a class="hash" style="text-decoration: none;" href="https://scc.ccore.online/transaction/${cTxs.id}">${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
+    txHash.innerHTML = `<a class="hash" target="_blank" style="text-decoration: none;" href="https://scc.ccore.online/transaction/${cTxs.id}">${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
 
     const txBlock = row.insertCell();
     txBlock.innerHTML = `<span class="badge bg-secondary-new">${cTxs.block.toLocaleString('en-US')}</span>`;
