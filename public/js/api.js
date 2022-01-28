@@ -106,7 +106,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       txType.innerHTML = `<span class="badge bg-${typeColor}" style="text-transform:capitalize;">${cTxs.type}</span>`;
 
       const txAddress = row.insertCell();
-      txAddress.innerHTML = `${formatName(cTxs.address, isMobile ? 5 : 34)}`;
+      txAddress.innerHTML = `<a style="text-decoration:none;" href="wallet.html?addr=${cTxs.address}">${formatName(cTxs.address, isMobile ? 5 : 34)}</a>`;
 
       const txAmount = row.insertCell();
       txAmount.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cTxs.ticker}`;
