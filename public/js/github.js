@@ -52,9 +52,9 @@ $.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases/lat
     }
 
     domRow.innerHTML = `
-        <div style="text-align:center;top:12vh;position:relative;cursor:pointer;width:max-content;margin-left:auto;margin-right:auto;" onclick="download('${getDownloadUrl(data.assets, strName)}')">
-            <img src="${strImage}" style="width:12em;">
+        <div style="text-align:center;margin-top:12vh;position:relative;cursor:pointer;width:max-content;margin-left:auto;margin-right:auto;" onclick="download('${getDownloadUrl(data.assets, strName)}')">
+            <img src="${strImage}" style="width:8em;">
             <br>
-            <h5 href="/" style="padding:10px;color:#006286;">Download for <b>${strName}</b></h5>
+            <button class="btn btn-stakecube" style="margin-top:20px;">Download for ${strName}</button
         </div>`;
 });
