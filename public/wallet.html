@@ -1,0 +1,179 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SCPscan - Wallet Details</title>
+  <meta name="description" content="Discover the world of StakeCube Protocol (SCP), search for tokens and TXs, calculate APRs and Earnings, and perform in-depth analysis of any part of the network."/>
+  <meta name="copyright"content="StakeCube">
+  <meta name="language" content="EN">
+  <meta name="url" content="https://scpscan.net">
+  <meta name="identifier-URL" content="https://scpscan.net">
+  <meta name="coverage" content="Worldwide">
+  <meta name="distribution" content="Global">
+
+  <meta name="og:title" content="SCPscan"/>
+  <meta name="og:site_name" content="SCPscan"/>
+  <meta name="og:url" content="https://scpscan.net"/>
+  <meta name="og:description" content="Discover the world of StakeCube Protocol (SCP), search for tokens and TXs, calculate APRs and Earnings, and perform in-depth analysis of any part of the network."/>
+  <meta name="theme-color" content="#0ca5e4"/>
+
+  <link rel="icon" href="/img/scp.ico">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link id="theme" href="css/style-light.css" rel="stylesheet">
+  <script src="js/theme.js"></script>
+  <script src="js/utils.js"></script>
+</head>
+
+<body>
+
+  <header style="margin-bottom:80px;">
+    <nav class="navbar navbar-colour navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="img/scp-dark-bg.svg" height="38" class="d-inline-block align-top" alt="SCPscan">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Tokens</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/collections.html">NFTs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/download.html">Downloads</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-md-auto">
+            <li class="nav-item">
+              <a class="nav-link" id="themeBtn" onclick="swapTheme()">☀️</a>
+            </li>
+          </ul>
+          <form class="d-flex my-0">
+            <div class="autocomplete" style="width:300px;">
+              <input class="form-control" id="myInput" type="text" placeholder="Search">
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <h5 id="walletAddress" class="mb-3">-</h5>
+      <div class="row">
+
+        <div class="col-12 col-md-6">
+          <div class="card">
+            <div class="card-header">
+              Overview <span class="scpType" id="scpType"></span>
+            </div>
+            <div class="card-body padding-top-11">
+              
+              <div class="row align-items-center font-size-14">
+                <div class="col-md-4 mb-1 mb-md-0 fw-500">Total transactions:</div>
+                <div class="col-md-8">
+                  <div class="d-flex"><span id="totalTransactions">-</span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="card">
+            <div class="card-header">
+              Balance <span class="scpType" id="scpType"></span>
+              
+              
+              <div class="text-end dropdownBoxDiv">
+                <select class="form-select dropdownBox" id="tokenFilters" onchange="updateFilter()">
+                  <option selected>-</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="card-body padding-top-11">
+              
+              <div class="row align-items-center font-size-14">
+                <div class="col-md-4 mb-1 mb-md-0 fw-500">Balance:</div>
+                <div class="col-md-8">
+                  <div class="d-flex"><span id="totalBalance">-</span>&nbsp;<span id="totalBalanceTicker"></span></div>
+                </div>
+              </div>
+
+              <hr class="hr-space">
+              
+              <div class="row align-items-center font-size-14">
+                <div class="col-md-4 mb-1 mb-md-0 fw-500">Amount sent:</div>
+                <div class="col-md-8">
+                  <div class="d-flex"><span id="amountSent">-</span>&nbsp;<span id="amountSentTicker"></span></div>
+                </div>
+              </div>
+
+              <hr class="hr-space">
+              
+              <div class="row align-items-center font-size-14">
+                <div class="col-md-4 mb-1 mb-md-0 fw-500">Amount received:</div>
+                <div class="col-md-8">
+                  <div class="d-flex"><span id="amountReceived">-</span>&nbsp;<span id="amountReceivedTicker"></span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-12 my-4">
+          <div class="card">
+            <div class="card-body no-padding">
+
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="border-bottom:1px solid rgba(255, 255, 255, 0.1)">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link-custom active" id="pills-transfers-tab" data-bs-toggle="pill" data-bs-target="#pills-transfers" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Transfers</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active px-2 pb-3" id="pills-transfers" role="tabpanel" aria-labelledby="pills-transfers-tab">
+                  <table class="table" id="txTable">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col" class="w-245px">TX-ID</th>
+                        <th scope="col">Block</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Token</th>
+                        <th scope="col">Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </main>
+
+  <script src="js/jquery-latest.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/search.js"></script>
+</body>
+
+</html>

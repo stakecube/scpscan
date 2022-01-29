@@ -641,3 +641,26 @@ div.omrs-input-group {
 .btn-stakecube:focus {
   box-shadow:none;
 }
+
+.dropdownBox {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  color:#fff;
+  padding: 10px 11px;
+  padding-right: 35px;
+  font-size:11px;
+  background-color:#202122;
+  border:1px solid #313334;
+  width:auto;
+  display: inline;
+}
+
+.dropdownBox:focus {
+  box-shadow: 0 0 0 0.25rem rgb(151 157 160 / 25%);
+  border-color:#313334;
+}
+
+.dropdownBoxDiv {
+  position: absolute;
+  right: 13px;
+  top: 11px;
+}
