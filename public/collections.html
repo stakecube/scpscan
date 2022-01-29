@@ -21,12 +21,12 @@
     content="Discover the world of StakeCube Protocol (SCP), search for tokens and TXs, calculate APRs and Earnings, and perform in-depth analysis of any part of the network." />
   <meta name="theme-color" content="#0ca5e4" />
 
+  <link rel="icon" href="/img/scp.ico">
+
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link id="theme" href="css/style-light.css" rel="stylesheet">
   <script src="js/theme.js"></script>
   <script src="js/utils.js"></script>
-  
-  <link rel="shortcut icon" type="image/ico" href="img/scp.ico" />
 </head>
 
 <body>
@@ -34,7 +34,9 @@
   <header style="margin-bottom:80px;">
     <nav class="navbar navbar-colour navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="/"><img src="img/scp-dark-bg.svg" height="38" class="d-inline-block align-top" alt="SCPscan"></a>
+        <a class="navbar-brand" href="index.html">
+          <img src="img/scp-dark-bg.svg" height="38" class="d-inline-block align-top" alt="SCPscan">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -56,6 +58,11 @@
               <a class="nav-link" id="themeBtn" onclick="swapTheme()">🌙</a>
             </li>
           </ul>
+          <form class="d-flex my-0">
+            <div class="autocomplete" style="width:300px;">
+              <input class="form-control" id="myInput" type="text" placeholder="Loading..." autocomplete="off">
+            </div>
+          </form>
         </div>
       </div>
     </nav>
@@ -143,6 +150,7 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/lodash.js"></script>
   <script src="js/collections.js"></script>
+  <script src="js/searchCollectionsNFTs.js"></script>
 </body>
 
 </html>

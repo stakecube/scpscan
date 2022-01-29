@@ -104,7 +104,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     const row = tbodyRef.insertRow();
     const txHash = row.insertCell();
     //txHash.innerHTML = `<a href="transaction.html?id=${cTxs.id}">${formatName(cTxs.id, 21)}</a>`;
-    txHash.innerHTML = `<a class="hash" style="text-decoration: none;" href="https://scc.ccore.online/transaction/${cTxs.id}">${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
+    txHash.innerHTML = `<a class="hash" target="_blank" style="text-decoration: none;" href="https://scc.ccore.online/transaction/${cTxs.id}">${formatName(cTxs.id, isMobile ? 6 : 21)}</a>`;
 
     const txBlock = row.insertCell();
     txBlock.innerHTML = `<span class="badge bg-secondary-new">${cTxs.block.toLocaleString('en-US')}</span>`;
@@ -122,7 +122,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     txType.innerHTML = `<span class="badge bg-${typeColor}" style="text-transform:capitalize;">${cTxs.type}</span>`;
 
     const txAddress = row.insertCell();
-    txAddress.innerHTML = `${formatName(cTxs.address, isMobile ? 5 : 34)}`;
+    txAddress.innerHTML = `<a style="text-decoration:none;" href="wallet.html?addr=${cTxs.address}">${formatName(cTxs.address, isMobile ? 5 : 34)}</a>`;
 
     const txAmount = row.insertCell();
     txAmount.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
@@ -151,7 +151,7 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     holdersRank.innerHTML = `<span class="fw-500">${rankNumber}</span>`;
 
     const holdersAddress = row.insertCell();
-    holdersAddress.innerHTML = formatName(richList.address, isMobile ? 5 : 34);
+    holdersAddress.innerHTML = `<a style="text-decoration:none;" href="wallet.html?addr=${richList.address}">${formatName(richList.address, isMobile ? 5 : 34)}</a>`;
 
     const holdersAmount = row.insertCell();
     holdersAmount.innerHTML = `${nHTML(richList.balance / COIN, isMobile ? 2 : 8)} ${cToken.ticker}`;
@@ -180,8 +180,9 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/gettoken/' + id, function(d
     const nWeight = percentOf(cStaker.balance, cToken.supply) / 100;
     const nReward = cToken.inflation * nWeight;
     nAPR = percentOf((nReward * 720) * 365, cStaker.balance);
-    domApr.innerText = nAPR.toFixed(2) + "%";
-    domStakingAPR.innerText = nAPR.toFixed(2) + "% APR!";
+    console.log(nAPR);
+    domApr.innerText =(Number(nAPR) ? nAPR.toFixed(2) + "%" : '0%');
+    domStakingAPR.innerText = (Number(nAPR) ? nAPR.toFixed(2) + "% APR!" : '0% APR!');
     calcRewards("0");
   }
 });

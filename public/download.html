@@ -19,12 +19,12 @@
   <meta name="og:description" content="Discover the world of StakeCube Protocol (SCP), join the revolution and download your own SCP Wallet, a powerful lightwallet with Staking, NFTs, DApps and plug-n-play Developer Tools to deploy your own tokens in seconds!"/>
   <meta name="theme-color" content="#0ca5e4"/>
 
+  <link rel="icon" href="/img/scp.ico">
+
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link id="theme" href="css/style-light.css" rel="stylesheet">
   <script src="js/theme.js"></script>
   <script src="js/utils.js"></script>
-  
-  <link rel="shortcut icon" type="image/ico" href="img/scp.ico" />
 </head>
 
 <body>
@@ -32,7 +32,9 @@
   <header style="margin-bottom:80px;">
     <nav class="navbar navbar-colour navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="/"><img src="img/scp-dark-bg.svg" height="38" class="d-inline-block align-top" alt="SCPscan"></a>
+        <a class="navbar-brand" href="index.html">
+          <img src="img/scp-dark-bg.svg" height="38" class="d-inline-block align-top" alt="SCPscan">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -61,59 +63,36 @@
 
   <main>
     <div class="container">
-      <h3 class="mb" style="text-align:center;">Latest Release<br><b id="title">...</b></h3>
-      <div id="downloadRow" class="row">
-        <h5 style="opacity:0.75;text-align:center;margin-top:12vh;">Loading</h5>
-      </div>
-      <br>
-      <br>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-    		<h5 style="opacity: 0.25;cursor:pointer;margin-top: 150px;text-align:center;width:100%;" class="advanced">Advanced Users</h5>
-    	</div>
-    </div>
-    <div class="row">
-    	<div class="col-lg-1">
-    	</div>
-        <div class="col-md-12 col-lg-10 mt-3 d-none list">
 
-		  <div class="col-12 mb-3">
+    <div class="row">
+        <div class="col-12">
+
           <div class="card">
             <div class="card-header">
-              <h3>Stable releases</h3>
-          <p>These are the current and previous stable releases of SCP, updated automatically when a new version is tagged in our <a href="https://github.com/stakecube/StakeCubeProtocol/releases" targer="_blank">GitHub repository</a>.</p>
+              Latest Release
             </div>
             <div class="card-body px-2 py-2">
-              <div class="table-responsive">
-                <table class="table" id="releasesTable">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Release</th>
-                      <th scope="col">OS</th>
-                      <th scope="col">Kind</th>
-                      <th scope="col">Arch</th>
-                      <th scope="col">Size</th>
-                      <th scope="col">Published</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
+                
+                <h3 class="mb" style="text-align:center;"><br><b id="title"></b></h3>
+                <div id="downloadRow">
+                  <h5 style="opacity:0.75;text-align:center;margin-top:5vh;margin-bottom:3vh;">Loading</h5>
+                </div>
+                <br>
+                <br>
+
               </div>
             </div>
+
           </div>
         </div>
-        
 
         </div>
-      </div>
+    <h5 style="opacity: 0.25;cursor:pointer;position:absolute;bottom:1em;text-align:center;width:100%;" onclick="download('https://github.com/stakecube/StakeCubeProtocol/releases')">Advanced Users</h5>
   </main>
 
   <script src="js/jquery-latest.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/github.js"></script>
-  <script src="js/download.js"></script>
 </body>
 
 </html>

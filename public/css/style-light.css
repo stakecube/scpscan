@@ -584,3 +584,45 @@ div.omrs-input-group {
     width: 100%;
   }
 }
+
+.logo-title {
+  height: 26px;
+  position: relative;
+  top: -2px;
+}
+
+.btn-stakecube {
+  background-color:#0FCAD5;
+  color:#fff;
+}
+
+.btn-stakecube:hover {
+  background-color:#0fb9c2;
+  color:#fff;
+}
+
+.btn-stakecube:focus {
+  box-shadow:none;
+}
+
+.dropdownBox {
+  color:#000;
+  padding: 3px 11px;
+  padding-right: 35px;
+  font-size:11px;
+  background-color:#f1f1f1;
+  border:1px solid #dbdbdb;
+  width:auto;
+  display: inline;
+}
+
+.dropdownBox:focus {
+  box-shadow: 0 0 0 0.25rem rgb(151 157 160 / 25%);
+  border-color:#dbdbdb;
+}
+
+.dropdownBoxDiv {
+  position: absolute;
+  right: 13px;
+  top: 11px;
+}

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>SCPscan - Token Details</title>
+  <title>SCPscan - Wallet Details</title>
   <meta name="description" content="Discover the world of StakeCube Protocol (SCP), search for tokens and TXs, calculate APRs and Earnings, and perform in-depth analysis of any part of the network."/>
   <meta name="copyright"content="StakeCube">
   <meta name="language" content="EN">
@@ -53,7 +53,7 @@
           </ul>
           <ul class="navbar-nav ms-md-auto">
             <li class="nav-item">
-              <a class="nav-link" id="themeBtn" onclick="swapTheme()">🌙</a>
+              <a class="nav-link" id="themeBtn" onclick="swapTheme()">☀️</a>
             </li>
           </ul>
           <form class="d-flex my-0">
@@ -68,7 +68,7 @@
 
   <main>
     <div class="container">
-      <h5 id="contractName" class="mb-3">-</h5>
+      <h5 id="walletAddress" class="mb-3">-</h5>
       <div class="row">
 
         <div class="col-12 col-md-6">
@@ -79,38 +79,9 @@
             <div class="card-body padding-top-11">
               
               <div class="row align-items-center font-size-14">
-                <div class="col-md-4 mb-1 mb-md-0 fw-500">Max Total Supply:</div>
+                <div class="col-md-4 mb-1 mb-md-0 fw-500">Total transactions:</div>
                 <div class="col-md-8">
-                  <div class="d-flex"><span id="maxSupply">-</span></div>
-                </div>
-              </div>
-
-              <hr class="hr-space">
-              
-              <div class="row align-items-center font-size-14">
-                <div class="col-md-4 mb-1 mb-md-0 fw-500">Holders:</div>
-                <div class="col-md-8">
-                  <div class="d-flex"><span id="holders">-</span></div>
-                </div>
-              </div>
-
-              <hr class="hr-space">
-              
-              <div class="row align-items-center font-size-14">
-                <div class="col-md-4 mb-1 mb-md-0 fw-500">Transactions:</div>
-                <div class="col-md-8">
-                  <div class="d-flex"><span id="transfers">-</span></div>
-                </div>
-              </div>
-
-              <div id="aprTab">
-                <hr class="hr-space">
-                
-                <div class="row align-items-center font-size-14">
-                  <div class="col-md-4 mb-1 mb-md-0 fw-500">Staking APR:</div>
-                  <div class="col-md-8">
-                    <div class="d-flex"><span id="apr">-</span></div>
-                  </div>
+                  <div class="d-flex"><span id="totalTransactions">-</span></div>
                 </div>
               </div>
 
@@ -121,32 +92,40 @@
         <div class="col-12 col-md-6">
           <div class="card">
             <div class="card-header">
-              Summary
+              Balance <span class="scpType" id="scpType"></span>
+              
+              
+              <div class="text-end dropdownBoxDiv">
+                <select class="form-select dropdownBox" id="tokenFilters" onchange="updateFilter()">
+                  <option selected>-</option>
+                </select>
+              </div>
             </div>
+
             <div class="card-body padding-top-11">
-
+              
               <div class="row align-items-center font-size-14">
-                <div class="col-md-4 mb-1 mb-md-0 fw-500">Contract:</div>
+                <div class="col-md-4 mb-1 mb-md-0 fw-500">Balance:</div>
                 <div class="col-md-8">
-                  <div class="d-flex"><span class="hash" id="contractAddress">-</span></div>
+                  <div class="d-flex"><span id="totalBalance">-</span>&nbsp;<span id="totalBalanceTicker"></span></div>
                 </div>
               </div>
 
               <hr class="hr-space">
-
+              
               <div class="row align-items-center font-size-14">
-                <div class="col-md-4 mb-1 mb-md-0 fw-500">Official Site:</div>
+                <div class="col-md-4 mb-1 mb-md-0 fw-500">Amount sent:</div>
                 <div class="col-md-8">
-                  <div class="d-flex"><span id="officialSite">-</span></div>
+                  <div class="d-flex"><span id="amountSent">-</span>&nbsp;<span id="amountSentTicker"></span></div>
                 </div>
               </div>
 
               <hr class="hr-space">
-
+              
               <div class="row align-items-center font-size-14">
-                <div class="col-md-4 mb-1 mb-md-0 fw-500">Social Profiles:</div>
+                <div class="col-md-4 mb-1 mb-md-0 fw-500">Amount received:</div>
                 <div class="col-md-8">
-                  <div class="d-flex" id="socialProfiles">-</div>
+                  <div class="d-flex"><span id="amountReceived">-</span>&nbsp;<span id="amountReceivedTicker"></span></div>
                 </div>
               </div>
 
@@ -162,12 +141,6 @@
                 <li class="nav-item" role="presentation">
                   <button class="nav-link-custom active" id="pills-transfers-tab" data-bs-toggle="pill" data-bs-target="#pills-transfers" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Transfers</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link-custom" id="pills-holders-tab" data-bs-toggle="pill" data-bs-target="#pills-holders" type="button" role="tab" aria-controls="pills-holders" aria-selected="true">Holders</button>
-                </li>
-                <li id="stakingTab" class="nav-item" role="presentation">
-                  <button class="nav-link-custom" id="pills-info-tab" data-bs-toggle="pill" data-bs-target="#pills-info" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Staking</button>
-                </li>
               </ul>
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active px-2 pb-3" id="pills-transfers" role="tabpanel" aria-labelledby="pills-transfers-tab">
@@ -177,70 +150,13 @@
                         <th scope="col" class="w-245px">TX-ID</th>
                         <th scope="col">Block</th>
                         <th scope="col">Type</th>
-                        <th scope="col">Address</th>
+                        <th scope="col">Token</th>
                         <th scope="col">Quantity</th>
                       </tr>
                     </thead>
                     <tbody>
                     </tbody>
                   </table>
-                </div>
-                <div class="tab-pane fade px-2 pb-3" id="pills-holders" role="tabpanel" aria-labelledby="pills-holders-tab">
-                  <table class="table" id="holdersTable">
-                    <thead class="thead-light">
-                      <tr>
-                        <th scope="col" class="w-1px">Rank</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Percentage</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                </div>
-                <div name="stakingPage" class="tab-pane fade px-2 pb-3" id="pills-info" role="tabpanel" aria-labelledby="pills-info-tab">
-                  <div class="card" style="text-align: center; max-width: 350px; margin-left: auto; margin-right: auto;">
-                    <div class="card-body">
-                      <div class="form-group">
-                        <label>Find out your earnings at <b id="stakingAPR" style="color: #67d4a1;">0% APR!</b></label>
-                        <br><br>
-                        <input id="stakingInput" type="number" placeholder="100" min="0" step="0.00000001" style="text-align: center;" class="form-control" oninput="calcRewards(this.value)">
-                      </div>
-                      <hr>
-                      <ul class="list-group"></ul>
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Period</th>
-                            <th>Reward</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1h</th>
-                            <td id="rewardCalc1">0</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">24h</th>
-                            <td id="rewardCalc2">0</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">7d</th>
-                            <td id="rewardCalc3">0</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">1mo</th>
-                            <td id="rewardCalc4">0</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">1y</th>
-                            <td id="rewardCalc5">0</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -256,7 +172,7 @@
 
   <script src="js/jquery-latest.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/contract.js"></script>
+  <script src="js/wallet.js"></script>
   <script src="js/search.js"></script>
 </body>
 
