@@ -60,7 +60,7 @@ function renderCollections() {
     const b = data[i - 1];
     if (percentOf(a.totalNFTs - a.burnedNFTs, a.maxMints - a.burnedNFTs) ===
         percentOf(b.totalNFTs - b.burnedNFTs, b.maxMints - b.burnedNFTs)) {
-      b.completeRank = a.completeRank;
+      a.completeRank = b.completeRank;
     }
   }
 
