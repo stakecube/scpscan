@@ -5,7 +5,7 @@ function getDownloadUrl(assets, os) {
     for (const asset of assets) {
         if (os === 'Windows' && asset.browser_download_url.endsWith('.exe')) return asset.browser_download_url;
         if (os === 'MacOS' && asset.browser_download_url.endsWith('darwin-x64.zip')) return asset.browser_download_url;
-        if (os === 'Linux') return 'https://github.com/stakecube/StakeCubeProtocol';
+        if (os === 'Linux' && asset.browser_download_url.endsWith('.deb')) return asset.browser_download_url;
     }
     // If there's no OS match to any GitHub asset, simply redirect to GitHub, something is fishy
     return 'https://github.com/stakecube/StakeCubeProtocol';
@@ -15,7 +15,8 @@ function download(url) {
     window.open(url);
 }
 
-$.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases/latest', function(data) {
+
+function parseRelease(data) {
     domTitle.innerText = data.name;
 
     // Figure out which OS we're using
@@ -41,10 +42,10 @@ $.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases/lat
         strImage = "img/linux.png";
 	}
 
-    if (strName === 'unknown' || strName === 'Linux') {
+    if (strName === 'unknown') {
         return domRow.innerHTML = `
             <h5 style="opacity:0.75;text-align:center;margin-top:12vh;">
-                <b>${strName === 'Linux' ? 'Hey Linux guy! We don\'t offer pre-compiled binaries here.' : 'Unknown OS!'}</b>
+                <b>Unknown OS!</b>
                 <br>
                 <br>
                 Check out the <a href="https://github.com/stakecube/StakeCubeProtocol">SCP Wallet repo</a> for our open-source codebase and releases!
@@ -57,4 +58,4 @@ $.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases/lat
             <br>
             <h5 href="/" style="padding:10px;color:#006286;">Download for <b>${strName}</b></h5>
         </div>`;
-});
+}

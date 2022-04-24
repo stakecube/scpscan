@@ -9,6 +9,8 @@ $('.advanced').click(function(){
 });
 
 $.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases', function(data) {
+			// Initiate the latest release parse in 'github.js' to save bandwidth (no need for two calls!)
+			parseRelease(data[0]);
 			var t = '';
 			var name = '';
             $.each(data, function( index, release ) {
@@ -74,21 +76,20 @@ $.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases', f
 		var kind = '';
 		var txts = name.split(".");
 		var ext = txts[txts.length - 1];
+		if (ext === 'sig') return 'Signature';
+		if (ext === 'zip') return 'Archive';
 		switch(type){
 			case "application/x-msdownload": kind = 'Installer';
 			break;
+			case 'application/x-ms-dos-executable': kind = 'Installer';
+			break;
+			case 'application/vnd.debian.binary-package': kind = 'Debian Package'
+			break;
 			case "application/octet-stream": 
-				if (ext === 'exe'){
+				if (ext === 'exe') {
 					kind = 'Installer';
 				}
-				else if(ext === 'sig'){
-					kind = 'Signature';
-				}
-				else{
-					kind = 'Signature';
-				} 
-			break;
-			case "application/x-zip-compressed": kind = 'Archive';
+				else kind = 'Unknown';
 			break;
 		}
 		return kind;
@@ -102,6 +103,9 @@ $.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases', f
 		else if (name.indexOf('-darwin-x64') != -1){
 			os = 'Mac';
 		}
+		else if (name.indexOf('amd64') != -1) {
+			os = 'Linux';
+		}
 		else{
 			os = '-';
 		}
@@ -110,7 +114,7 @@ $.getJSON('https://api.github.com/repos/stakecube/StakeCubeProtocol/releases', f
 	
 	function getArch(name){
 		var arch = '';
-		if (name.indexOf('x64')){
+		if (name.indexOf('x64') || name.indexOf('amd64')){
 			arch = '64-bit';
 		}
 		else if (name.indexOf('x32')){
