@@ -45,9 +45,9 @@ let environment;
 let credentials;
 try {
     credentials = {
-        key:  fs.readFileSync(CONFIG.certifications + 'privkey.pem', 'utf8'),
-        cert: fs.readFileSync(CONFIG.certifications + 'cert.pem', 'utf8'),
-        ca:   fs.readFileSync(CONFIG.certifications + 'chain.pem', 'utf8')
+        key:  fs.readFileSync(CONFIG.certificates + 'privkey.pem', 'utf8'),
+        cert: fs.readFileSync(CONFIG.certificates + 'cert.pem', 'utf8'),
+        ca:   fs.readFileSync(CONFIG.certificates + 'chain.pem', 'utf8')
     };
     environment = 'public';
 } catch (e) {
