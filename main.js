@@ -5,13 +5,14 @@ const cors = require('cors');
 const fs = require('fs');
 const compression = require('compression');
 
-const localPort = process.env.PORT || 80;
-const certbotDir = '/etc/letsencrypt/live/scpscan.net/';
+// Load config file
+const CONFIG = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
 const app = express();
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+// Frontend static files
 app.use(express.static('public'));
 app.use(cors());
 const router = require('./routes');
@@ -44,9 +45,9 @@ let environment;
 let credentials;
 try {
     credentials = {
-        key:  fs.readFileSync(certbotDir + 'privkey.pem', 'utf8'),
-        cert: fs.readFileSync(certbotDir + 'cert.pem', 'utf8'),
-        ca:   fs.readFileSync(certbotDir + 'chain.pem', 'utf8')
+        key:  fs.readFileSync(CONFIG.certifications + 'privkey.pem', 'utf8'),
+        cert: fs.readFileSync(CONFIG.certifications + 'cert.pem', 'utf8'),
+        ca:   fs.readFileSync(CONFIG.certifications + 'chain.pem', 'utf8')
     };
     environment = 'public';
 } catch (e) {
@@ -54,11 +55,10 @@ try {
     environment = "local";
 }
 
-
 if (environment === 'local') {
     // HTTP
-    app.listen(localPort, () => {
-        console.log(`SCPscan running in local environment on port ` + localPort);
+    app.listen(CONFIG.devport, () => {
+        console.log(`SCPscan running in local (dev) environment on port ` + CONFIG.devport);
     });
 } else {
     // HTTPS

@@ -1,0 +1,5 @@
+{
+    "devport": 80,
+    "certificates": "/etc/letsencrypt/live/scpscan.net/",
+    "scpnode": "http://localhost:3000/api/v1/"
+}

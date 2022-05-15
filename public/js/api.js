@@ -10,79 +10,24 @@ const totalTokens = document.getElementById('totalTokens');
 const userAddresses = document.getElementById("userAddresses");
 
 // STATS!
-let nDailyTXs = 0;
-const allUsers = [];
+let allUsers = [];
 
-$.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(data) {
+$.getJSON(window.location.origin + '/api/v1/gettokendata', function(data) {
     // Inserts data into array for searching
-    for (const inf of data) {
+    for (const inf of data.arrTokens)
       CoinSearchData.push(`${inf.name} (${inf.ticker}):${inf.contract}`);
-    }
+
+    // Update user address list
+    allUsers = data.allUsers;
 
     // Update total tokens
-    totalTokens.innerHTML = data.length.toLocaleString('en-GB');
-    
-    // Precompute the stats of each token
-    let nHighestBlock = 0;
-    const txsArray = [];
-    for (const cToken of data) {
-      let cStaker = false;
-      // --- ACTIVITY DATA
-      cToken.totalActivity = 0;
-      cToken.APR = 0;
-      // Loop every owner
-      for (const cOwner of cToken.owners) {
-        // Add all users to array
-        if (!allUsers.includes(cOwner.address))
-          allUsers.push(cOwner.address);
-        // Add the activity
-        cToken.totalActivity += cOwner.activity.length;
-        // If their latest activity's block is higher than our current one, set it
-        if (cOwner.activity.length) {
-          let cLastBlk = cOwner.activity[cOwner.activity.length - 1].block;
-          if (cLastBlk)
-            nHighestBlock = cLastBlk;
-        }
-        if (cToken.version === 2) {
-          if (cStaker && cStaker.unclaimed_balance < cOwner.unclaimed_balance) {
-            cStaker = cOwner;
-          } else if (!cStaker) {
-            cStaker = cOwner;
-          }
-        }
+    totalTokens.innerHTML = data.arrTokens.length.toLocaleString('en-GB');
 
-        // Get all transactions and put them in a array
-        for (const cTxs of cOwner.activity) {
-          txsArray.push({
-            name: cToken.name,
-            ticker: cToken.ticker,
-            contract: cToken.contract,
-            id: cTxs.id,
-            block: cTxs.block,
-            type: cTxs.type,
-            amount: cTxs.amount,
-            address: cOwner.address
-          });
-        }
-      }
-      
-      // Sort all arrays on block height
-      txsArray.sort((a, b) => b.block - a.block);
-      
-      // --- SCP-2 --- APR DATA - (based on a sample of the largest staker)
-      if (cToken.version === 2 && cStaker) {
-        const nWeight = percentOf(cStaker.balance, cToken.supply) / 100;
-        const nReward = cToken.inflation * nWeight;
-        cToken.APR = percentOf((nReward * 720) * 365, cStaker.balance);
-      }
-    }
+    // Update daily TXs
+    transactions24h.innerHTML = data.nDailyTXs.toLocaleString('en-GB');
 
     // Get all transactions and put them in table
-    let txsCounter = 0;
-    for (const cTxs of txsArray) {
-      // End loop when 25 are shown
-      if (txsCounter > 24) break;
-
+    for (const cTxs of data.arrTXs) {
       const row = txTable.insertRow();
       const txName = row.insertCell();
       txName.innerHTML = `<a style="text-decoration: none" href="contract.html?id=${cTxs.contract}">${formatName(cTxs.name, isMobile ? 9 : 30)}${isMobile ? '<br>' : ' '}(${formatName(cTxs.ticker, 6)})</a>`;
@@ -95,11 +40,11 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
 
       // Types colors
       let typeColor = 'secondary';
-      if(cTxs.type == 'staked') {
+      if (cTxs.type == 'staked') {
         typeColor = 'success-new';
-      } else if(cTxs.type == 'sent') {
+      } else if (cTxs.type == 'sent') {
         typeColor = 'danger-new';
-      } else if(cTxs.type == 'received') {
+      } else if (cTxs.type == 'received') {
         typeColor = 'info-new';
       }
       const txType = row.insertCell();
@@ -110,39 +55,24 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
 
       const txAmount = row.insertCell();
       txAmount.innerHTML = `${nHTML(cTxs.amount / COIN, isMobile ? 2 : 8)} ${cTxs.ticker}`;
-      txsCounter++;
     }
-
-    // --- TX Aggregation Data ---
-    // Roll a backwards forloop until we hit a block older than 720 from our tip
-    for (const cToken of data) {
-      for (const cOwner of cToken.owners) {
-        for (const cActivity of cOwner.activity) {
-          if (cActivity.block >= nHighestBlock - 720) {
-            nDailyTXs++;
-          }
-        }
-      }
-    }
-
-    transactions24h.innerHTML = nDailyTXs.toLocaleString('en-GB');
 
     // Sort the list by total activity
-    data.sort((a, b) => b.totalActivity - a.totalActivity);
+    data.arrTokens.sort((a, b) => b.totalActivity - a.totalActivity);
     
     // Set most popular token
-    popularToken.innerHTML = `${data[0].name} (${data[0].ticker})`;
-    popularToken.setAttribute('href', 'contract.html?id=' + data[0].contract);
+    popularToken.innerHTML = `${data.arrTokens[0].name} (${data.arrTokens[0].ticker})`;
+    popularToken.setAttribute('href', 'contract.html?id=' + data.arrTokens[0].contract);
 
-    let i; const len = data.length;
+    let i; const len = data.arrTokens.length;
     for (i = 0; i < len; i++) {
       // Token variables
-      const strContract = data[i].contract;
-      const nVersion = data[i].version;
-      const strName = data[i].name;
-      const strTicker = data[i].ticker;
-      const nSupply = data[i].supply / COIN;
-      const nMaxSupply = data[i].maxSupply / COIN;
+      const strContract = data.arrTokens[i].contract;
+      const nVersion = data.arrTokens[i].version;
+      const strName = data.arrTokens[i].name;
+      const strTicker = data.arrTokens[i].ticker;
+      const nSupply = data.arrTokens[i].supply / COIN;
+      const nMaxSupply = data.arrTokens[i].maxSupply / COIN;
       
       // Token's row
       const row = tbodyRef.insertRow();
@@ -160,8 +90,8 @@ $.getJSON('https://stakecubecoin.net/web3/scp/tokens/getalltokens', function(dat
       const tokenSupply = row.insertCell();
       const tokenSupplyPct = percentOf(nSupply, nMaxSupply).toFixed(isMobile ? 1 : 2) + '%';
       tokenSupply.innerHTML = `${nHTML(nSupply, isMobile ? 2 : (nSupply > 100 ? 4 : 8))}<br style="margin-bottom: 5px;"><span style="cursor:pointer;margin-right:5px;${isMobile ? 'margin-bottom:5px;' : ''}" class="badge bg-info-new" title="${nSupply === 0 ? 'This token is new! The creator has not issued any supply yet.' : (tokenSupplyPct + ' of the total ' + formatName(strTicker, 6) + ' supply has been minted!')}">${nSupply === 0 ? 'New!' : tokenSupplyPct}</span>`;
-      if (nVersion === 2 && data[i].APR > 0) {
-        const tokenAPRStr = data[i].APR.toLocaleString('en-US', { maximumFractionDigits: isMobile ? 0 : (data[i].APR > 100 ? 0 : 2)}) + '%';
+      if (nVersion === 2 && data.arrTokens[i].APR > 0) {
+        const tokenAPRStr = data.arrTokens[i].APR.toLocaleString('en-US', { maximumFractionDigits: isMobile ? 0 : (data.arrTokens[i].APR > 100 ? 0 : 2)}) + '%';
         tokenSupply.innerHTML += '<span style="cursor:pointer" class="badge bg-success-new" title="' + formatName(strTicker, 6) + ' rewards it\'s holders with ' + tokenAPRStr + ' APR">' + tokenAPRStr + ' APR</span>';
       }
 
